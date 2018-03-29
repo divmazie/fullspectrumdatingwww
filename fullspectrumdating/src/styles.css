@@ -1,0 +1,38 @@
+/* You can add global styles to this file, and also import other style files */
+body {
+    background-color: #99ddaa;
+    color: #884488;
+}
+.container {
+    width: 800px;
+    margin: auto;
+}
+
+.title {
+    margin: 60px auto 80px;
+    text-align: center;
+}
+
+.title-human1, .title-for, .title-human2 {
+    display: block;
+}
+.title-human1 {
+    font-family: Garamond, Baskerville, "Baskerville Old Face", "Hoefler Text", "Times New Roman", serif;
+    font-size: 48px;
+    color: #992266;
+
+}
+.title-for {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    color: #444444;
+}
+.title-human2 {
+    font-family: "Brush Script MT", cursive;
+    font-size: 56px;
+    color: #662299;
+}
+.pitch {
+    text-align: center;
+    color: #884488;
+}
