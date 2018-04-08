@@ -1,32 +1,50 @@
-<p>This is a site for you (yes, you!) to find other humans to have naked sexy time with.
-  But it is also a place for everyone to treat each other as a full human beings with all the complexities that go with that.
+<p>This is a site for you (yes, you!) to find other humans to have naked sexy time with, regardless of your gender or lack thereof.
+  It is also a place for everyone to treat each other as a full human beings with all the complexities that go with that.
   You for them and them for you.</p>
 
 <p>With that in mind, we’ve got a few guidelines to follow while you’re here:</p>
 
-<ul>
-  <li>Respect for femininity
+<div class="row">
+  <div class="col-lg">
+    <h3>Respect for femininity</h3>
 
-    This site makes no effort to draw a line around the category of “woman”, but anyone who feels that a part of themselves is feminine deserves to have that part be respected.</li>
+    <p>This site makes no effort to draw a line around the category of “woman”,
+        but anyone who feels that a part of themselves is feminine deserves to have that part be respected.</p>
 
-  <li>Respect for genders and sexualities outside the ones you currently understand
+    <h3>Respect for people of color</h3>
 
-    It’s a special kind of insult to tell someone that something they spent years struggling to understand about themselves is incorrect.</li>
+    <p>White people, let’s give some space for those people with profoundly different social circumstances.
+      To the extent your sexuality involves a racial component, express the desires not the aversions.</p>
 
-  <li>Accept people’s bodies as they are
+    <h3>Consent is an ongoing process</h3>
 
-    No one’s body is wrong, only your mistreatment of them because of their body. This includes secondary sexual characteristics, primary sexual characteristics, weight, age, ableness.</li>
+    <p>Boundaries can exist at any point on any level. Be prepared to acknowledge and respect them.</p>
+  </div>
 
-  <li>Respect for people of color
+  <div class="col-lg">
+    <h3>Respect for genders and sexualities outside the ones you currently understand</h3>
 
-    In a media landscape dominated by white voices, let’s give some space for those people with profoundly different social circumstances. To the extent your sexuality involves a racial component, express the desires not the aversions.</li>
+    <p>It’s a special kind of insult to tell someone that something they spent years struggling to understand about themselves is incorrect.</p>
 
-  <li>Consent is an ongoing process
+    <h3>Accept people’s bodies as they are</h3>
 
-    Boundaries can exist at any point on any level. Be prepared to acknowledge and respect them.</li>
+    <p>No one’s body is wrong, only the mistreatment of them because of their body.
+      This includes secondary sexual characteristics, primary sexual characteristics, weight, age, ableness, &c.</p>
 
-  <li>No threats of violence (without clear navigation of bdsm style consent)
+    <h3>No threats of violence</h3>
 
-    If they didn’t understand that you were joking, you’re in the wrong, not them.</li>
+    <p>Unless you're engaging in a mutually sought after BDSM style thing, violent speech has no place here.
+        If they didn’t understand that you were joking, you’re in the wrong, not them.</p>
+  </div>
+</div>
 
-</ul>
+<input type="checkbox" id="consent" [(ngModel)]="consent">
+<label for="consent" >I can handle this!</label>
+
+<div *ngIf="consent">
+  Be an alpha user!
+  <input type="text" [(ngModel)]="emailinput" placeholder="Email" />
+  <button (click)="submitEmail()">Sign up</button>
+  <div *ngIf="showError">Please enter valid email address</div>
+  <div *ngIf="showThanks">Thanks for signing up! We'll be in touch!</div>
+</div>

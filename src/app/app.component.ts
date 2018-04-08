@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {ApiService} from './api.service'
+import {ApiService} from './api.service';
 
 @Component({
   selector: 'app-root',
@@ -7,17 +7,11 @@ import {ApiService} from './api.service'
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  constructor(
-      private apiService: ApiService
-  ) {
-  }
+  constructor() {}
+
 
   public ngOnInit() {
-    this.apiService
-      .getApiCall()
-      .subscribe(
-        data => {}
-      );
+
   }
 
   title = 'Full Spectrum Dating';

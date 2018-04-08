@@ -2,10 +2,13 @@
 body {
     background-color: #99ddaa;
     color: #884488;
+    margin-bottom: 50px;
 }
-.container {
-    width: 800px;
-    margin: auto;
+
+h1, h2, h3, h4, h5, h6 {
+    color: #bb4488;
+    font-family: Garamond, Baskerville, "Baskerville Old Face", "Hoefler Text", "Times New Roman", serif;
+    font-weight: bold;
 }
 
 .title {
@@ -31,8 +34,4 @@ body {
     font-family: "Brush Script MT", cursive;
     font-size: 56px;
     color: #662299;
-}
-.pitch {
-    text-align: center;
-    color: #884488;
 }
