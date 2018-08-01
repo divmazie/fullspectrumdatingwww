@@ -1,4 +1,4 @@
-<p>This is a site for you (yes, you!) to find other humans to have naked sexy time with, regardless of your gender or lack thereof.
+<p>This is a site for you (yes, you!) to connect with other humans for romance, activities, and/or sex, regardless of your gender or lack thereof.
   It is also a place for everyone to treat each other as a full human beings with all the complexities that go with that.
   You for them and them for you.</p>
 
@@ -13,7 +13,7 @@
 
     <h3>Respect for people of color</h3>
 
-    <p>White people, let’s give some space for those people with profoundly different social circumstances.
+    <p>Non-white folks deserve online spaces where they don't feel like the other. This should be such a space.
       To the extent your sexuality involves a racial component, express the desires not the aversions.</p>
 
     <h3>Consent is an ongoing process</h3>
@@ -24,7 +24,7 @@
   <div class="col-lg">
     <h3>Respect for genders and sexualities outside the ones you currently understand</h3>
 
-    <p>It’s a special kind of insult to tell someone that something they spent years struggling to understand about themselves is incorrect.</p>
+    <p>It’s a special kind of insult to tell someone that something they've struggled to understand about themselves is invalid.</p>
 
     <h3>Accept people’s bodies as they are</h3>
 
@@ -33,8 +33,8 @@
 
     <h3>No threats of violence</h3>
 
-    <p>Unless you're engaging in a mutually sought after BDSM style thing, violent speech has no place here.
-        If they didn’t understand that you were joking, you’re in the wrong, not them.</p>
+    <p>Unless you're engaging in a mutually-sought-after BDSM style thing, violent speech has no place here.
+        If someone doesn't understand that you are joking, you’re in the wrong, not them.</p>
   </div>
 </div>
 
@@ -42,9 +42,11 @@
 <label for="consent" >I can handle this!</label>
 
 <div *ngIf="consent">
-  Be an alpha user!
-  <input type="text" [(ngModel)]="emailinput" placeholder="Email" />
-  <button (click)="submitEmail()">Sign up</button>
-  <div *ngIf="showError">Please enter valid email address</div>
-  <div *ngIf="showThanks">Thanks for signing up! We'll be in touch!</div>
+    <div *ngIf="!showThanks">
+      Be an alpha user!
+      <input type="text" [(ngModel)]="emailinput" (keyup)="checkEmailFormat()" placeholder="Email" />
+      <button (click)="submitEmail()" [disabled]="submitdisabled">Sign up</button>
+      <div *ngIf="showError">{{errorMessage}}</div>
+    </div>
+    <div *ngIf="showThanks">Thanks for signing up! We'll be in touch!</div>
 </div>

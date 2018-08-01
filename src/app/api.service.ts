@@ -39,6 +39,11 @@ export class ApiService {
     return this.getApiCall(request);
   }
 
+  public getSignupEmail(signupid) {
+    var request = this.getRequestObject('signup-emails/get-by-signupid',signupid);
+    return this.getApiCall(request);
+  }
+
   private handleError (error: Response | any) {
     console.error('ApiService::handleError', error);
     return Observable.throw(error);
