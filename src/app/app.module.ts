@@ -10,13 +10,17 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { SignupComponent } from './signup/signup.component';
 import { NewUserComponent } from './new-user/new-user.component';
+import { DimInputComponent } from './dim-input/dim-input.component';
+
+//declare var $: any;
 
 
 @NgModule({
   declarations: [
     AppComponent,
     SignupComponent,
-    NewUserComponent
+    NewUserComponent,
+    DimInputComponent
   ],
   imports: [
     BrowserModule,
