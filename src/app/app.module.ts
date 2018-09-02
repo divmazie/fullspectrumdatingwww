@@ -11,8 +11,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { SignupComponent } from './signup/signup.component';
 import { NewUserComponent } from './new-user/new-user.component';
 import { DimInputComponent } from './dim-input/dim-input.component';
+import { PlaygroundComponent } from './playground/playground.component';
 
-//declare var $: any;
+declare var $: any;
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { DimInputComponent } from './dim-input/dim-input.component';
     AppComponent,
     SignupComponent,
     NewUserComponent,
-    DimInputComponent
+    DimInputComponent,
+    PlaygroundComponent
   ],
   imports: [
     BrowserModule,
