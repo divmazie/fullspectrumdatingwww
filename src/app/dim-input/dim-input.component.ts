@@ -20,24 +20,24 @@ export class DimInputComponent implements AfterViewInit {
 
   ngAfterViewInit() {
       console.log('init');
-    this.makeSlider();
+      this.makeSlider();
   }
 
   makeSlider() {
       $( '#' + this.id ).slider({
           min: 0,
           max: 10,
+          step: 0.1,
+          animate: 'fast',
           value: this.sliderVal,
-          slide: this.sliderChange,
-          change: this.sliderChange
+          slide: this.sliderChange.bind(this),
+          change: this.sliderChange.bind(this)
       });
   }
 
-  sliderChange() {
-      const num = Number.parseFloat($( '#' + this.id ).slider('value'));
-      this.sliderVal = num;
-      console.log('sliderChange ' + num);
-    // this.change.emit({yesNo: this.yesNoVal, slider: this.sliderVal});
+  sliderChange(event) {
+      this.sliderVal = Number.parseFloat($( '#' + this.id ).slider('value'));
+      this.change.emit({yesNo: this.yesNoVal, slider: this.sliderVal});
   }
 
 }
