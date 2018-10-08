@@ -5,21 +5,21 @@ import { Observable } from 'rxjs/Observable';
 
 const API_URL = environment.apiUrl;
 const httpOptions = {
-  //headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-}
+  // headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+};
 
 @Injectable()
 export class ApiService {
 
-  constructor(private http:HttpClient) {}
+  constructor(private http: HttpClient) {}
 
   private getApiCall(request) {
-    var body = new HttpParams().set('request',JSON.stringify(request));
-    return this.http.post(API_URL,body);
+    const body = new HttpParams().set('request', JSON.stringify(request));
+    return this.http.post(API_URL, body);
   }
 
-  private getRequestObject(resource,data) {
-    var request = {
+  private getRequestObject(resource, data) {
+    const request = {
       resource: resource,
       data: null
     };
@@ -30,17 +30,22 @@ export class ApiService {
   }
 
   public getEmails() {
-    var request = this.getRequestObject('signup-emails/get-all',false);
+    const request = this.getRequestObject('signup-emails/get-all', false);
     return this.getApiCall(request);
   }
 
   public submitEmail(email) {
-    var request = this.getRequestObject('signup-emails/save',email);
+    const request = this.getRequestObject('signup-emails/save', email);
     return this.getApiCall(request);
   }
 
   public getSignupEmail(signupid) {
-    var request = this.getRequestObject('signup-emails/get-by-signupid',signupid);
+    const request = this.getRequestObject('signup-emails/get-by-signupid', signupid);
+    return this.getApiCall(request);
+  }
+
+  public getDimensions() {
+    const request = this.getRequestObject('dimensions/get-all', false);
     return this.getApiCall(request);
   }
 

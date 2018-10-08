@@ -22,7 +22,7 @@ export class SignupComponent implements OnInit {
   }
 
   checkEmailFormat() {
-    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     this.emailvalid = re.test(String(this.emailinput).toLowerCase());
     this.submitdisabled = !this.emailvalid;
   }
@@ -42,7 +42,7 @@ export class SignupComponent implements OnInit {
   }
 
   handle_response(response) {
-    //alert(JSON.stringify(response));
+    // alert(JSON.stringify(response));
     this.showThanks = !!response['status'];
     if (response['status']==0) {
       this.submitdisabled = false;

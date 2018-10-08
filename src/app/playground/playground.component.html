@@ -1,7 +1,1 @@
-<div>
-  playground works!
-    <app-dim-input *ngFor="let dim of dims;"
-            [dimName]="dim.name" [yesNoVal]="dim.yesNo"
-            [sliderVal]="dim.slider" (change)="getVals($event)">
-    </app-dim-input>
-</div>
+<app-dimensions-ui [preferences]="true"></app-dimensions-ui>

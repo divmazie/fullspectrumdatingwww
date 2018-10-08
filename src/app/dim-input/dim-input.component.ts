@@ -37,7 +37,20 @@ export class DimInputComponent implements AfterViewInit {
 
   sliderChange(event) {
       this.sliderVal = Number.parseFloat($( '#' + this.id ).slider('value'));
-      this.change.emit({yesNo: this.yesNoVal, slider: this.sliderVal});
+      this.notifyParent();
+  }
+
+  notifyParent() {
+      this.change.emit({dimName: this.dimName, yesNo: this.yesNoVal, slider: this.sliderVal});
+  }
+
+  setYesNo(value) {
+      if (this.yesNoVal === value) {
+          this.yesNoVal = 0;
+      } else {
+          this.yesNoVal = value;
+      }
+      this.notifyParent();
   }
 
 }

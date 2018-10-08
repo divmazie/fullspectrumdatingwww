@@ -1,10 +1,20 @@
 import { Component, OnInit } from '@angular/core';
+import {ApiService} from '../api.service';
+import {forEach} from '@angular/router/src/utils/collection';
 
 export interface Dimension {
     name: string;
+    id: number;
     yesNo: number;
     slider: number;
 }
+export interface DimensionCategory {
+    name: string;
+    id: number;
+    dimensions: Dimension[];
+}
+
+declare var $: any;
 
 @Component({
   selector: 'app-playground',
@@ -13,21 +23,8 @@ export interface Dimension {
 })
 
 export class PlaygroundComponent implements OnInit {
-  dims: Dimension[];
 
-    getVals(event) {
-        console.log(event);
-    }
+    constructor() {}
 
-  constructor() {
-      this.dims = [
-          {name: 'Masculine', yesNo: 0, slider: 1},
-          {name: 'Feminine', yesNo: 1, slider: 4},
-          {name: 'Agender', yesNo: -1, slider: 2}
-      ];
-  }
-
-  ngOnInit() {
-  }
-
+    ngOnInit() {}
 }

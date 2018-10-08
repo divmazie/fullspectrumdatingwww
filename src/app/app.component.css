@@ -1,0 +1,9 @@
+.ui-slider-horizontal {
+    height: 0.4em;
+}
+
+.ui-slider-horizontal .ui-slider-handle {
+    border-radius: 10px !important;
+    top: -0.5em;
+    background-color: blue;
+}
