@@ -1,0 +1,29 @@
+<div class="dimensions_ui">
+  <div *ngFor="let dim_cat of dim_cats">
+    <h3 (click)="showCategory(dim_cat.id)" class="dim_cat_name" id="dim_cat_{{dim_cat.id}}">{{dim_cat.name}}</h3>
+    <div *ngIf="dim_cat.id==visible_cat">
+      <div class="row">
+        <div class="col-6 col-md-4">
+          <div *ngIf="preferences">I'd like to meet someone who is…</div>
+          <div *ngIf="!preferences">I am…</div>
+        </div>
+        <div class="col-6 col-md-8">
+          <div class="slider_left_label">
+            <div *ngIf="preferences">Not important</div>
+            <div *ngIf="!preferences">Don't allow others to search for</div>
+          </div>
+          <div class="slider_right_label">
+            <div *ngIf="preferences">Very important</div>
+            <div *ngIf="!preferences">Make it easy for others to search for</div>
+          </div>
+        </div>
+      </div>
+      <div *ngFor="let dim of dim_cat.dimensions;">
+        <app-dim-input [dimName]="dim.name" [yesNoVal]="dim.yesNo"
+                       [sliderVal]="dim.slider" (change)="getVals($event)">
+        </app-dim-input>
+        <!-- Value: {{dim.slider}} -->
+      </div>
+    </div>
+  </div>
+</div>

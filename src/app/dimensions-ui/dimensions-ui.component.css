@@ -1,0 +1,15 @@
+.dimensions_ui {
+    text-align: left;
+}
+
+.dim_cat_name {
+    cursor: pointer;
+}
+
+.slider_left_label {
+    float: left;
+}
+
+.slider_right_label {
+    float: right;
+}
