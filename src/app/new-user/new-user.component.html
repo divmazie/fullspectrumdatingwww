@@ -1,7 +1,11 @@
 <p>
   New user...
-  {{email}}
-
-  <input type="password" [(ngModel)]="password1">
-  <input type="password" [(ngModel)]="password2">
+  <br />
+  <input type="email" [(ngModel)]="email" placeholder="Email" />
+  <br />
+  <input type="password" [(ngModel)]="password1" placeholder="Password" />
+  <br />
+  <input type="password" [(ngModel)]="password2" placeholder="Confirm password" />
+  <br />
+  <button (click)="createButtonClick()" [disabled]="buttonDisabled()">Create Account</button>
 </p>

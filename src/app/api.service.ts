@@ -19,15 +19,23 @@ export class ApiService {
   }
 
   private getRequestObject(resource, data) {
-    const request = {
-      resource: resource,
-      data: null
-    };
-    if (data) {
-      request.data = data;
-    }
-    return request;
+      const request = {
+          resource: resource,
+          data: null
+      };
+      if (data) {
+          request.data = data;
+      }
+      return request;
   }
+
+
+  private handleError (error: Response | any) {
+    console.error('ApiService::handleError', error);
+    return Observable.throw(error);
+  }
+
+  /************ SIGNUP EMAILS ************/
 
   public getEmails() {
     const request = this.getRequestObject('signup-emails/get-all', false);
@@ -44,14 +52,23 @@ export class ApiService {
     return this.getApiCall(request);
   }
 
+  /************ DIMENSIONS ************/
+
   public getDimensions() {
     const request = this.getRequestObject('dimensions/get-all', false);
     return this.getApiCall(request);
   }
 
-  private handleError (error: Response | any) {
-    console.error('ApiService::handleError', error);
-    return Observable.throw(error);
+  /************ ACCOUNTS ************/
+
+  public accountCreate(email, password_hash) {
+    const request = this.getRequestObject('accounts/create',{email: email, password_hash: password_hash});
+    return this.getApiCall(request);
+  }
+
+  public accountSignin(email, password_hash) {
+      const request = this.getRequestObject('accounts/signin',{email: email, password_hash: password_hash});
+      return this.getApiCall(request);
   }
 
 }
