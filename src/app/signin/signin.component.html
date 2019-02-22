@@ -1,0 +1,9 @@
+<p>
+  Sign in...
+  <br />
+  <input type="email" [(ngModel)]="email" placeholder="Email" />
+  <br />
+  <input type="password" [(ngModel)]="password1" placeholder="Password" />
+  <br />
+  <button (click)="signinButtonClick()" [disabled]="buttonDisabled()">Sign in</button>
+</p>
