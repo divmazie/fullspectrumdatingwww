@@ -13,6 +13,7 @@ import { NewUserComponent } from './new-user/new-user.component';
 import { DimInputComponent } from './dim-input/dim-input.component';
 import { PlaygroundComponent } from './playground/playground.component';
 import { DimensionsUiComponent } from './dimensions-ui/dimensions-ui.component';
+import { SigninComponent } from './signin/signin.component';
 
 declare var $: any;
 
@@ -24,7 +25,8 @@ declare var $: any;
     NewUserComponent,
     DimInputComponent,
     PlaygroundComponent,
-    DimensionsUiComponent
+    DimensionsUiComponent,
+    SigninComponent
   ],
   imports: [
     BrowserModule,

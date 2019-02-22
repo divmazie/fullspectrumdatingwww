@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {ApiService} from '../api.service';
 import {Md5} from 'ts-md5/dist/md5';
+import {SessionService} from '../session.service';
 
 @Component({
   selector: 'app-new-user',
@@ -14,7 +15,8 @@ export class NewUserComponent implements OnInit {
   password1: string;
   password2: string;
 
-  constructor(private route: ActivatedRoute, private apiService: ApiService) { }
+  constructor(private route: ActivatedRoute, private apiService: ApiService, private sessionService: SessionService,
+              private router: Router) { }
 
   ngOnInit() {
     this.password1 = '';
@@ -67,6 +69,8 @@ export class NewUserComponent implements OnInit {
 
   handle_signin_response(response) {
     console.log(response);
+    this.sessionService.setSessionInfo(response.data);
+    this.router.navigate(['/home']);
   }
 
 }
