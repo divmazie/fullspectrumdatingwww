@@ -9,10 +9,10 @@ import {ApiService} from './api.service';
 export class AppComponent {
   constructor() {}
 
+  title = 'Human For Human';
 
   public ngOnInit() {
 
   }
 
-  title = 'Full Spectrum Dating';
 }

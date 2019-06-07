@@ -1,1 +1,5 @@
-<app-dimensions-ui [preferences]="true"></app-dimensions-ui>
+<button (click)="identity=true" class="btn btn-sm" [ngClass]="identity ? 'btn-primary' : 'btn-light'">Identity</button>
+<button (click)="identity=false" class="btn btn-sm" [ngClass]="!identity ? 'btn-primary' : 'btn-light'">Preferences</button>
+
+<app-dimensions-ui [hidden]="identity" [preferences]="true"></app-dimensions-ui>
+<app-dimensions-ui [hidden]="!identity" [preferences]="false"></app-dimensions-ui>

@@ -36,8 +36,12 @@ export class SigninComponent implements OnInit {
 
     handle_signin_response(response) {
         console.log(response);
-        this.sessionService.setSessionInfo(response.data);
-        this.router.navigate(['/home']);
+        if (response.status === 1) {
+            this.sessionService.setSessionInfo(response.data);
+            this.router.navigate(['/home']);
+        } else {
+            alert(response.errorMessage);
+        }
     }
 
 }

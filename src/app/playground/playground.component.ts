@@ -26,5 +26,7 @@ export class PlaygroundComponent implements OnInit {
 
     constructor() {}
 
+    identity = true;
+
     ngOnInit() {}
 }

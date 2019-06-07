@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { RouterModule, Routes, ActivatedRouteSnapshot, CanActivate } from '@angular/router';
+import { RouterModule, Router, ActivatedRouteSnapshot, RouterStateSnapshot, CanActivate } from '@angular/router';
 import {SessionService} from './session.service';
 
 @Injectable({
@@ -7,9 +7,18 @@ import {SessionService} from './session.service';
 })
 export class AuthGuardService implements CanActivate {
 
-  constructor(private sessionService: SessionService) { }
+  constructor(private sessionService: SessionService, private router: Router) { }
 
-  canActivate(next: ActivatedRouteSnapshot): boolean {
-    return this.sessionService.sessionIsValid();
+  canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
+    if (this.sessionService.sessionIsValid()) {
+        return true;
+    } else {
+        this.router.navigate(['/signin'], {
+            queryParams: {
+                return: state.url
+            }
+        });
+        return false;
+    }
   }
 }
