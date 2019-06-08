@@ -22,4 +22,11 @@ export class SessionService {
   public sessionIsValid() {
     return !!this.id;
   }
+
+  public logout() {
+      this.id = undefined;
+      this.hash = undefined;
+      localStorage.removeItem('session_id');
+      localStorage.removeItem('session_hash');
+  }
 }

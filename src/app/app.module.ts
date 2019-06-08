@@ -14,6 +14,7 @@ import { DimInputComponent } from './dim-input/dim-input.component';
 import { PlaygroundComponent } from './playground/playground.component';
 import { DimensionsUiComponent } from './dimensions-ui/dimensions-ui.component';
 import { SigninComponent } from './signin/signin.component';
+import { HeaderComponent } from './header/header.component';
 
 declare var $: any;
 
@@ -26,7 +27,8 @@ declare var $: any;
     DimInputComponent,
     PlaygroundComponent,
     DimensionsUiComponent,
-    SigninComponent
+    SigninComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,

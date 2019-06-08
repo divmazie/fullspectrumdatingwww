@@ -32,22 +32,30 @@ export class DimensionsUiComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.apiService.getDimensions()
-            .subscribe(response => this.handle_response(response));
+        if (!this.preferences) {
+            this.apiService.getIdentities()
+                .subscribe(response => this.handle_response(response));
+        } else { /*
+            this.apiService.getPreferences()
+                .subscribe(response => this.handle_response(response)); */
+        }
     }
 
     handle_response(response) {
         const _this = this;
-        // alert(JSON.stringify(response));
+        // alert(JSON.stringify(response['data']['identities']));
         if (response['status'] === 1) {
             response['data']['dimension_categories'].forEach(function (dim_cat) {
                 const newDimCat = {name: dim_cat['name'], id: dim_cat['id'], dimensions: []};
                 _this.dim_cats.push(newDimCat);
             });
-            response['data']['dimensions'].forEach(function (dim) {
+            response['data']['identities'].forEach(function (dim) {
                 _this.dim_cats.forEach(function (dim_cat) {
-                    if (dim['category'] === dim_cat.id) {
-                        const newDim = {name: dim['name'], id: dim['id'], yesNo: 0, slider: 1};
+                    if (dim['dimension_id_values']['category'] === dim_cat.id) {
+                        const newDim = {name: dim['dimension_id_values']['name'],
+                                        id: dim['dimension_id_values']['id'],
+                                        yesNo: dim['yesNo'],
+                                        slider: dim['slider']};
                         dim_cat.dimensions.push(newDim);
                     }
                 });

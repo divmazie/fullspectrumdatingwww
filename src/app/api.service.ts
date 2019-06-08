@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from 'environments/environment';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
+import {SessionService} from './session.service';
 
 const API_URL = environment.apiUrl;
 const httpOptions = {
@@ -11,7 +12,7 @@ const httpOptions = {
 @Injectable()
 export class ApiService {
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private sessionService: SessionService) {}
 
   private getApiCall(request) {
     const body = new HttpParams().set('request', JSON.stringify(request));
@@ -21,7 +22,8 @@ export class ApiService {
   private getRequestObject(resource, data) {
       const request = {
           resource: resource,
-          data: null
+          data: null,
+          session_info: {id: this.sessionService.id, hash: this.sessionService.hash}
       };
       if (data) {
           request.data = data;
@@ -55,9 +57,19 @@ export class ApiService {
   /************ DIMENSIONS ************/
 
   public getDimensions() {
-    const request = this.getRequestObject('dimensions/get-all', false);
-    return this.getApiCall(request);
+      const request = this.getRequestObject('dimensions/get-all', false);
+      return this.getApiCall(request);
   }
+
+    public getIdentities() {
+        const request = this.getRequestObject('dimensions/get-identities', false);
+        return this.getApiCall(request);
+    }
+
+    public getPreferences() {
+        const request = this.getRequestObject('dimensions/get-preferences', false);
+        return this.getApiCall(request);
+    }
 
   /************ ACCOUNTS ************/
 
