@@ -15,6 +15,7 @@ export class ApiService {
   constructor(private http: HttpClient, private sessionService: SessionService) {}
 
   private getApiCall(request) {
+    //  console.log(request);
     const body = new HttpParams().set('request', JSON.stringify(request));
     return this.http.post(API_URL, body);
   }
@@ -71,15 +72,25 @@ export class ApiService {
         return this.getApiCall(request);
     }
 
+    public saveIdentity(identity) {
+      const request = this.getRequestObject('dimensions/save-identity', identity);
+      return this.getApiCall(request);
+    }
+
+    public savePreference(preference) {
+        const request = this.getRequestObject('dimensions/save-preference', preference);
+        return this.getApiCall(request);
+    }
+
   /************ ACCOUNTS ************/
 
   public accountCreate(email, password_hash) {
-    const request = this.getRequestObject('accounts/create',{email: email, password_hash: password_hash});
+    const request = this.getRequestObject('accounts/create', {email: email, password_hash: password_hash});
     return this.getApiCall(request);
   }
 
   public accountSignin(email, password_hash) {
-      const request = this.getRequestObject('accounts/signin',{email: email, password_hash: password_hash});
+      const request = this.getRequestObject('accounts/signin', {email: email, password_hash: password_hash});
       return this.getApiCall(request);
   }
 

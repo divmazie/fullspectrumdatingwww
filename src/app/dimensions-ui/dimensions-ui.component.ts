@@ -35,40 +35,54 @@ export class DimensionsUiComponent implements OnInit {
         if (!this.preferences) {
             this.apiService.getIdentities()
                 .subscribe(response => this.handle_response(response));
-        } else { /*
+        } else {
             this.apiService.getPreferences()
-                .subscribe(response => this.handle_response(response)); */
+                .subscribe(response => this.handle_response(response));
         }
     }
 
     handle_response(response) {
         const _this = this;
         // alert(JSON.stringify(response['data']['identities']));
-        if (response['status'] === 1) {
-            response['data']['dimension_categories'].forEach(function (dim_cat) {
-                const newDimCat = {name: dim_cat['name'], id: dim_cat['id'], dimensions: []};
-                _this.dim_cats.push(newDimCat);
-            });
-            response['data']['identities'].forEach(function (dim) {
-                _this.dim_cats.forEach(function (dim_cat) {
-                    if (dim['dimension_id_values']['category'] === dim_cat.id) {
-                        const newDim = {name: dim['dimension_id_values']['name'],
-                                        id: dim['dimension_id_values']['id'],
-                                        yesNo: dim['yesNo'],
-                                        slider: dim['slider']};
-                        dim_cat.dimensions.push(newDim);
-                    }
+        // alert(JSON.stringify(response['resource']));
+        if (response['resource'][1] === 'get-identities'
+            || response['resource'][1] === 'get-preferences') {
+            if (response['status'] === 1) {
+                response['data']['dimension_categories'].forEach(function (dim_cat) {
+                    const newDimCat = {name: dim_cat['name'], id: dim_cat['id'], dimensions: []};
+                    _this.dim_cats.push(newDimCat);
                 });
-            });
+                response['data'][this.preferences ? 'preferences' : 'identities'].forEach(function (dim) {
+                    _this.dim_cats.forEach(function (dim_cat) {
+                        if (dim['dimension_id_values']['category'] === dim_cat.id) {
+                            const newDim = {
+                                name: dim['dimension_id_values']['name'],
+                                id: dim['id'],
+                                dimension_id: dim['dimension_id_values']['id'],
+                                yesNo: dim['yesNo'],
+                                slider: dim['slider']
+                            };
+                            dim_cat.dimensions.push(newDim);
+                        }
+                    });
+                });
+            }
         }
     }
 
     getVals(event) {
-        // console.log(event);
         const dim = this.findDimension(event);
         if (dim !== ({} as Dimension)) {
             dim.yesNo = event.yesNo;
             dim.slider = event.slider;
+        }
+        console.log(dim);
+        if (!this.preferences) {
+            this.apiService.saveIdentity(dim)
+                .subscribe(response => this.handle_response(response));
+        } else {
+            this.apiService.savePreference(dim)
+                .subscribe(response => this.handle_response(response));
         }
     }
 
