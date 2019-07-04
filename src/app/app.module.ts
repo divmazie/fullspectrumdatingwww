@@ -15,6 +15,7 @@ import { PlaygroundComponent } from './playground/playground.component';
 import { DimensionsUiComponent } from './dimensions-ui/dimensions-ui.component';
 import { SigninComponent } from './signin/signin.component';
 import { HeaderComponent } from './header/header.component';
+import { SearchComponent } from './search/search.component';
 
 declare var $: any;
 
@@ -28,7 +29,8 @@ declare var $: any;
     PlaygroundComponent,
     DimensionsUiComponent,
     SigninComponent,
-    HeaderComponent
+    HeaderComponent,
+    SearchComponent
   ],
   imports: [
     BrowserModule,

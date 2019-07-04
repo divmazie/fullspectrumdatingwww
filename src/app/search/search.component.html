@@ -1,0 +1,15 @@
+<div *ngFor="let match of matches">
+  <div class="profile_name">{{match.preferred_name}}</div>
+  <div>
+    Is:
+    <span *ngFor="let id of match.top_identities">
+      {{id.name}}
+    </span>
+  </div>
+  <div>
+    Seeking:
+    <span *ngFor="let id of match.top_preferences">
+      {{id.name}}
+    </span>
+  </div>
+</div>

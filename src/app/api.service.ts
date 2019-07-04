@@ -94,4 +94,11 @@ export class ApiService {
       return this.getApiCall(request);
   }
 
+  /************ PROFILES ************/
+
+  public getMatches() {
+      const request = this.getRequestObject('profiles/get-matches',false);
+      return this.getApiCall(request);
+  }
+
 }

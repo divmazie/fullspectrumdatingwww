@@ -7,6 +7,7 @@ import {DimInputComponent} from './dim-input/dim-input.component';
 import {PlaygroundComponent} from './playground/playground.component';
 import {SigninComponent} from './signin/signin.component';
 import {AuthGuardService} from './auth-guard.service';
+import {SearchComponent} from './search/search.component';
 
 const appRoutes: Routes = [
     {path: 'signup', component: SignupComponent },
@@ -14,6 +15,7 @@ const appRoutes: Routes = [
     {path: 'newuser', component: NewUserComponent},
     {path: 'signin', component: SigninComponent},
     {path: 'home', component: PlaygroundComponent, canActivate: [AuthGuardService]},
+    {path: 'search', component: SearchComponent, canActivate: [AuthGuardService]},
     {path: 'playground', component: PlaygroundComponent},
     {path: '', redirectTo: '/signup', pathMatch: 'full'}
 ];
