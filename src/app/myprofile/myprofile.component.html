@@ -1,0 +1,11 @@
+<a (click)="view='identities'">Identities</a>
+<a (click)="view='info'">Info</a>
+
+<div [hidden]="view !== 'identities'">
+  <app-dimensions-ui [preferences]="false"></app-dimensions-ui>
+</div>
+<div [hidden]="view !== 'info'" >
+  <label>Preferred Name: </label>
+  <input type="text" [(ngModel)]="preferred_name">
+  <button (click)="savePreferredName()" >Save</button>
+</div>

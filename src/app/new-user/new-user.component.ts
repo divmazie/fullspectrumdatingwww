@@ -3,6 +3,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {ApiService} from '../api.service';
 import {Md5} from 'ts-md5/dist/md5';
 import {SessionService} from '../session.service';
+import {UserprofileService} from '../userprofile.service';
 
 @Component({
   selector: 'app-new-user',
@@ -10,24 +11,26 @@ import {SessionService} from '../session.service';
   styleUrls: ['./new-user.component.css']
 })
 export class NewUserComponent implements OnInit {
-  signupid: number;
+  inviteCode: string;
   email: string;
   password1: string;
   password2: string;
 
   constructor(private route: ActivatedRoute, private apiService: ApiService, private sessionService: SessionService,
-              private router: Router) { }
+              private router: Router, private userService: UserprofileService) { }
 
   ngOnInit() {
     this.password1 = '';
     this.password2 = '';
-    this.route.params.subscribe(params => {
-      if (params['signupid']) {
-          this.signupid = +params['signupid']; // (+) converts string 'id' to a number
+    this.route.paramMap.subscribe(params => {
+      if (params.get('invite_code')) {
+          this.inviteCode = params.get('invite_code');
 
           // In a real app: dispatch action to load the details here.
-          this.apiService.getSignupEmail(this.signupid)
+          this.apiService.getSignupEmail(this.inviteCode)
               .subscribe(response => this.handle_response(response));
+      } else {
+          this.router.navigate(['/signup']);
       }
     });
   }
@@ -35,17 +38,16 @@ export class NewUserComponent implements OnInit {
   handle_response(response) {
       if (response.status === 1) {
           this.email = response.data.email;
+      } else {
+          this.router.navigate(['/signup']);
       }
   }
 
   buttonDisabled() {
-    if (this.password1.length < 2) {
+    if (this.password1.length < 10) {
       return true;
     }
-    if (this.password1 !== this.password2) {
-      return true;
-    }
-    return false;
+    return this.password1 !== this.password2;
   }
 
   createButtonClick() {
@@ -70,6 +72,7 @@ export class NewUserComponent implements OnInit {
   handle_signin_response(response) {
     console.log(response);
     this.sessionService.setSessionInfo(response.data);
+    this.userService.getUserProfile();
     this.router.navigate(['/home']);
   }
 

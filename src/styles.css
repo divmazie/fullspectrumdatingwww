@@ -1,14 +1,29 @@
 /* You can add global styles to this file, and also import other style files */
+@font-face {
+    font-family: 'Museo-slab';
+    src: url(assets/Museo_Slab_500.otf) format("opentype");
+}
+@font-face {
+    font-family: 'Helvetica Neue';
+    src: url(assets/HelveticaNeueLTStd-Lt.otf) format("opentype");
+}
+
 body {
-    background-color: #99ddaa;
-    color: #884488;
+    background-color: #99e6d8;
+    color: #E266A4;
     margin-bottom: 50px;
+    font-family: "Helvetica Neue", Helvetica, sans-serif;
 }
 
 h1, h2, h3, h4, h5, h6 {
     color: #bb4488;
-    font-family: Garamond, Baskerville, "Baskerville Old Face", "Hoefler Text", "Times New Roman", serif;
-    font-weight: bold;
+    font-family: 'Museo-slab', 'museo-slab', serif;
+    font-style: normal;
+    font-weight: 300;
+}
+
+p {
+    color: black;
 }
 
 .title {

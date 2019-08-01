@@ -4,6 +4,7 @@ import {ApiService} from '../api.service';
 import {SessionService} from '../session.service';
 import {AppRoutingModule} from '../app-routing.module';
 import {Router} from '@angular/router';
+import {UserprofileService} from '../userprofile.service';
 
 @Component({
   selector: 'app-signin',
@@ -14,7 +15,10 @@ export class SigninComponent implements OnInit {
     email: string;
     password1: string;
 
-    constructor(private apiService: ApiService, private sessionService: SessionService, private router: Router) { }
+    constructor(private apiService: ApiService,
+                private sessionService: SessionService,
+                private userprofileService: UserprofileService,
+                private router: Router) { }
 
     ngOnInit() {
         this.email = '';
@@ -38,6 +42,7 @@ export class SigninComponent implements OnInit {
         console.log(response);
         if (response.status === 1) {
             this.sessionService.setSessionInfo(response.data);
+            this.userprofileService.setUserInfo(response.data.userprofile);
             this.router.navigate(['/home']);
         } else {
             alert(response.errorMessage);

@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import {UserprofileService} from './userprofile.service';
+import {ApiService} from './api.service';
 
 @Injectable({
   providedIn: 'root'
@@ -28,5 +30,7 @@ export class SessionService {
       this.hash = undefined;
       localStorage.removeItem('session_id');
       localStorage.removeItem('session_hash');
+      localStorage.removeItem('user_profile_preferred_name');
+      localStorage.removeItem('user_profile_birthday');
   }
 }

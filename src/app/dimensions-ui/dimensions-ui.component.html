@@ -18,12 +18,14 @@
           </div>
         </div>
       </div>
-      <div *ngFor="let dim of dim_cat.dimensions;">
+      <div *ngFor="let dim of dim_cat.dimensions; let i = index">
         <app-dim-input [dimName]="dim.name" [yesNoVal]="dim.yesNo"
-                       [sliderVal]="dim.slider" (change)="getVals($event)">
+                       [sliderVal]="dim.slider" (change)="getVals($event)"
+                       [hidden]="i>showMoreCutoff && !showMore">
         </app-dim-input>
         <!-- Value: {{dim.slider}} -->
       </div>
+      <a [hidden]="showMore" (click)="showMore=true">Show More</a>
     </div>
   </div>
 </div>

@@ -16,6 +16,8 @@ import { DimensionsUiComponent } from './dimensions-ui/dimensions-ui.component';
 import { SigninComponent } from './signin/signin.component';
 import { HeaderComponent } from './header/header.component';
 import { SearchComponent } from './search/search.component';
+import { MyprofileComponent } from './myprofile/myprofile.component';
+import { MatchComponent } from './match/match.component';
 
 declare var $: any;
 
@@ -30,7 +32,9 @@ declare var $: any;
     DimensionsUiComponent,
     SigninComponent,
     HeaderComponent,
-    SearchComponent
+    SearchComponent,
+    MyprofileComponent,
+    MatchComponent
   ],
   imports: [
     BrowserModule,

@@ -50,8 +50,8 @@ export class ApiService {
     return this.getApiCall(request);
   }
 
-  public getSignupEmail(signupid) {
-    const request = this.getRequestObject('signup-emails/get-by-signupid', signupid);
+  public getSignupEmail(invite_code) {
+    const request = this.getRequestObject('signup-emails/get-by-invite-code', invite_code);
     return this.getApiCall(request);
   }
 
@@ -97,7 +97,22 @@ export class ApiService {
   /************ PROFILES ************/
 
   public getMatches() {
-      const request = this.getRequestObject('profiles/get-matches',false);
+      const request = this.getRequestObject('profiles/get-matches', false);
+      return this.getApiCall(request);
+  }
+
+  public getMatch(profile_id) {
+      const request = this.getRequestObject('profiles/get-match', profile_id);
+      return this.getApiCall(request);
+  }
+
+  public getUserProfile() {
+      const request = this.getRequestObject('profiles/user-profile', false);
+      return this.getApiCall(request);
+  }
+
+  public savePreferredName(name) {
+      const request = this.getRequestObject('profiles/save-preferred-name', name);
       return this.getApiCall(request);
   }
 
