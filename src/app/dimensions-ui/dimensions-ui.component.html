@@ -1,6 +1,7 @@
 <div class="dimensions_ui">
   <div *ngFor="let dim_cat of dim_cats">
-    <h3 (click)="showCategory(dim_cat.id)" class="dim_cat_name" id="dim_cat_{{dim_cat.id}}">{{dim_cat.name}}</h3>
+    <h3 (click)="showCategory(dim_cat.id)" [style.color]="dim_cat.color" class="dim_cat_name"
+        id="dim_cat_{{dim_cat.id}}">{{dim_cat.name}}</h3>
     <div *ngIf="dim_cat.id==visible_cat">
       <div class="row">
         <div class="col-6 col-md-4">
@@ -19,13 +20,13 @@
         </div>
       </div>
       <div *ngFor="let dim of dim_cat.dimensions; let i = index">
-        <app-dim-input [dimName]="dim.name" [yesNoVal]="dim.yesNo"
+        <app-dim-input [dimName]="dim.name" [color]="dim_cat.color" [yesNoVal]="dim.yesNo"
                        [sliderVal]="dim.slider" (change)="getVals($event)"
                        [hidden]="i>showMoreCutoff && !showMore">
         </app-dim-input>
         <!-- Value: {{dim.slider}} -->
       </div>
-      <a [hidden]="showMore" (click)="showMore=true">Show More</a>
+      <div [hidden]="showMore" (click)="showMore=true" class="show-more">Show More</div>
     </div>
   </div>
 </div>

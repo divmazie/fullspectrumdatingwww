@@ -1,0 +1,23 @@
+.match-full-image {
+    width: 75%;
+    float: left;
+}
+
+.match-full-text {
+    width: 25%;
+    padding: 10px;
+    color: black;
+    float: right;
+}
+
+.match-full-name {
+    font-family: 'Museo-slab', 'museo-slab', serif;
+    font-size: 2em;
+}
+
+.match-full-like {
+    font-family: 'Museo-slab', 'museo-slab', serif;
+    font-size: 1.5em;
+    text-align: left;
+    color: black;
+}

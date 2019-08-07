@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ApiService} from '../api.service';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-signup',
@@ -8,7 +9,7 @@ import {ApiService} from '../api.service';
 })
 export class SignupComponent implements OnInit {
 
-  constructor(private apiService: ApiService) { }
+  constructor(private apiService: ApiService, private route: ActivatedRoute, private router: Router) { }
 
   consent = false;
   emailinput = '';
@@ -17,8 +18,12 @@ export class SignupComponent implements OnInit {
   submitdisabled = true;
   showError = false;
   showThanks = false;
+  pictureDay = false;
 
   ngOnInit() {
+      this.route.queryParams.subscribe(params => {
+          this.pictureDay = !!params['pictureday'];
+      });
   }
 
   checkEmailFormat() {
@@ -48,6 +53,10 @@ export class SignupComponent implements OnInit {
       this.submitdisabled = false;
       this.errorMessage = response['errorMessage'];
       this.showError = true;
+    }
+    if (this.pictureDay) {
+      // alert(response['data']);
+      this.router.navigate(['/newuser/' + response['data'].replace('*', '')]);
     }
   }
 

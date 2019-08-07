@@ -1,0 +1,17 @@
+
+.sub-nav-container {
+    text-align: left;
+    margin: 0 0 20px;
+    color: black;
+}
+
+.sub-nav {
+    font-family: 'Museo-slab', 'museo-slab', serif;
+    cursor: pointer;
+    text-align: left;
+    padding: 20px;
+}
+
+.active {
+    color: #E266A4 !important;
+}

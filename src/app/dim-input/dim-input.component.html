@@ -1,10 +1,12 @@
 <div class="dim-input row">
     <div class="col-3 col-md-2">
-        <span class="dim-input-name">{{dimName}}</span>
+        <span class="dim-input-name" [style.color]="color">{{dimName}}</span>
     </div>
     <div class="col-3 col-md-2">
-        <button (click)="setYesNo(1)" class="btn btn-sm" [ngClass]="yesNoVal==1 ? 'btn-success' : 'btn-light'">Yes</button>
-        <button (click)="setYesNo(-1)" class="btn btn-sm" [ngClass]="yesNoVal==-1 ? 'btn-danger' : 'btn-light'">No</button>
+        <button (click)="setYesNo(1)" class="btn btn-sm yes-no-button" [style.background-color]="color"
+                [ngClass]="yesNoVal==1 ? '' : 'not-selected'">Yes</button>
+        <button (click)="setYesNo(-1)" class="btn btn-sm yes-no-button" [style.background-color]="color"
+                [ngClass]="yesNoVal==-1 ? '' : 'not-selected'">No</button>
     </div>
     <div class="col-6 col-md-8">
         <div class="dim-input-slider" [id]="id"></div>

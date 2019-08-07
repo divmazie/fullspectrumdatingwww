@@ -1,0 +1,17 @@
+.h4h-header {
+    height: 75px;
+    color: black;
+    font-family: 'Museo-slab', 'museo-slab', serif;
+}
+
+a {
+    color: black;
+}
+
+.nav-item {
+    color: black;
+}
+
+.active a {
+    color: #E266A4;
+}

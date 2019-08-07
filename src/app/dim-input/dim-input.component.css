@@ -7,5 +7,30 @@
     margin: 5px;
 }
 
+.selected {
+    background-color: darkgray;
+    color: white;
+}
+
+.yes-no-button {
+    color: white;
+}
+
+.not-selected {
+    background-color: lightgray !important;
+    color: black;
+}
+
 .dim-input-slider {
+}
+
+
+.ui-slider-horizontal {
+    height: 0.4em;
+}
+
+.ui-slider-horizontal .ui-slider-handle {
+    border-radius: 10px !important;
+    top: -1.5em;
+    background-color: blue;
 }

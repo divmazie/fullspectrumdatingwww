@@ -12,7 +12,7 @@ export class MyprofileComponent implements OnInit {
   preferred_name: string;
 
   constructor(private userprofileService: UserprofileService, private apiService: ApiService) {
-    this.view = 'info';
+    this.view = 'identities';
   }
 
   ngOnInit() {

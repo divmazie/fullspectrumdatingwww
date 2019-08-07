@@ -1,9 +1,11 @@
 .dimensions_ui {
     text-align: left;
+    color: gray;
 }
 
 .dim_cat_name {
     cursor: pointer;
+    color: black;
 }
 
 .slider_left_label {
@@ -12,4 +14,9 @@
 
 .slider_right_label {
     float: right;
+}
+
+.show-more {
+    cursor: pointer;
+    margin: 0 20px 30px;
 }

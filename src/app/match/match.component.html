@@ -1,20 +1,24 @@
 <div>
-  <span>{{match.preferred_name}}</span>
+  <img src="assets/vitruvian-man.jpg" class="match-full-image" />
+  <div class="match-full-text">
+    <span class="match-full-name">{{match.preferred_name}}</span>
+  </div>
+  <div style="clear: both;"></div>
 </div>
 <div>
-  <h3>You like that they are...</h3>
+  <div class="match-full-like">You like that they are...</div>
   <span *ngFor="let match_dim of youLikeThem">
     <span [style.font-size.px]="match_dim.match_value" [style.color]="match_dim.dimension.category_values.color">{{matchDimString(match_dim)}} </span>
   </span>
 </div>
 <div>
-  <h3>They like that you are...</h3>
+  <div class="match-full-like">They like that you are...</div>
   <span *ngFor="let match_dim of theyLikeYou">
     <span [style.font-size.px]="match_dim.match_value" [style.color]="match_dim.dimension.category_values.color">{{matchDimString(match_dim)}} </span>
   </span>
 </div>
 <div>
-  <h3>You might not like that they are...</h3>
+  <div class="match-full-like">You might not like that they are...</div>
   <span *ngFor="let match_dim of youNotLikeThem">
     <span [style.font-size.px]="-match_dim.match_value" [style.color]="match_dim.dimension.category_values.color">{{matchDimString(match_dim)}} </span>
   </span>

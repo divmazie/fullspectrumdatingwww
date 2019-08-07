@@ -10,6 +10,7 @@ declare var $: any;
 export class DimInputComponent implements AfterViewInit {
   id: string;
   @Input() dimName: string;
+  @Input() color: string;
   @Input() yesNoVal: number;
   @Input() sliderVal: number;
   @Output() change = new EventEmitter<Object>();

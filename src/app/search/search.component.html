@@ -1,29 +1,40 @@
-<a (click)="view='preferences'">Preferences</a>
-<a (click)="view='matches'">Matches</a>
-<div [hidden]="view !== 'preferences'">
-  <app-dimensions-ui [preferences]="true"></app-dimensions-ui>
-</div>
-<div [hidden]="view !== 'matches'">
-  <div class="row">
-    <div class="col-lg">
-      <div *ngFor="let match of matches">
-        <div class="profile_name" (click)="getMatch(match.id)">{{match.preferred_name}}</div>
-        <div>
-          Is:
-          <span *ngFor="let id of match.top_identities">
-            {{id.name}}
-          </span>
-        </div>
-        <div>
-          Seeking:
-          <span *ngFor="let id of match.top_preferences">
-            {{id.name}}
-          </span>
+<div class="app-content">
+  <div class="sub-nav-container">
+    <a class="sub-nav" (click)="view='preferences'"
+       [ngClass]="view==='preferences' ? 'active' : ''">Set Preferences</a>
+    <a class="sub-nav" (click)="view='matches'"
+       [ngClass]="view==='matches' ? 'active' : ''">See Matches</a>
+  </div>
+  <div [hidden]="view !== 'preferences'">
+    <app-dimensions-ui [preferences]="true"></app-dimensions-ui>
+  </div>
+  <div [hidden]="view !== 'matches'">
+    <div class="row">
+      <div class="col-lg-4">
+        <div *ngFor="let match of matches" class="match-preview" (click)="getMatch(match.id)">
+          <img class="match-preview-thumbnail" src="assets/vitruvian-man.jpg" />
+          <div class="match-preview-text">
+            <div class="profile_name">{{match.preferred_name}}</div>
+            <div>
+              <span *ngFor="let id of match.top_identities" [style.color]="id.category_values.color">
+                {{id.name}}
+              </span>
+            </div>
+            <!--
+            <div>
+              Seeking:
+              <span *ngFor="let id of match.top_preferences">
+                {{id.name}}
+              </span>
+            </div>
+            -->
+          </div>
+          <div style="clear: both;"></div>
         </div>
       </div>
-    </div>
-    <div class="col-lg">
-      <app-match *ngIf="match_detail" [match]="match_detail" [theyLikeYou]="theyLikeYou" [youLikeThem]="youLikeThem" [youNotLikeThem]="youNotLikeThem"></app-match>
+      <div class="col-lg-8">
+        <app-match *ngIf="match_detail" [match]="match_detail" [theyLikeYou]="theyLikeYou" [youLikeThem]="youLikeThem" [youNotLikeThem]="youNotLikeThem"></app-match>
+      </div>
     </div>
   </div>
 </div>
