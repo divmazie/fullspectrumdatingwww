@@ -1,14 +1,27 @@
 <div class="dim-input row">
-    <div class="col-3 col-md-2">
-        <span class="dim-input-name" [style.color]="color">{{dimName}}</span>
+    <div class="col-12 col-md-2">
+        <div class="dim-input-name-mobile d-block d-md-none" [style.color]="color">{{dimName}}</div>
+        <div class="dim-input-name d-none d-md-block" [style.color]="color">{{dimName}}</div>
     </div>
-    <div class="col-3 col-md-2">
+    <div class="d-block d-md-none col-4">
+        <div class="slider_left_label">
+            <div *ngIf="preferences">Not important</div>
+            <div *ngIf="!preferences">Don't allow search</div>
+        </div>
+    </div>
+    <div class="col-4 col-md-2" style="text-align: center;">
         <button (click)="setYesNo(1)" class="btn btn-sm yes-no-button" [style.background-color]="color"
                 [ngClass]="yesNoVal==1 ? '' : 'not-selected'">Yes</button>
         <button (click)="setYesNo(-1)" class="btn btn-sm yes-no-button" [style.background-color]="color"
                 [ngClass]="yesNoVal==-1 ? '' : 'not-selected'">No</button>
     </div>
-    <div class="col-6 col-md-8">
-        <div class="dim-input-slider" [id]="id"></div>
+    <div class="d-block d-md-none col-4">
+        <div class="slider_right_label">
+            <div *ngIf="preferences">Very important</div>
+            <div *ngIf="!preferences">Easy to search</div>
+        </div>
+    </div>
+    <div class="col-12 col-md-8">
+        <div class="dim-input-slider" [style.background-color]="color" [id]="id"></div>
     </div>
 </div>

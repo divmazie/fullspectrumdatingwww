@@ -4,7 +4,11 @@
 }
 
 .dim-input-name {
-    margin: 5px;
+    margin: 5px 0 10px;
+}
+
+.dim-input-name-mobile {
+    text-align: center;
 }
 
 .selected {
@@ -22,6 +26,7 @@
 }
 
 .dim-input-slider {
+    margin: 10px 0 20px;
 }
 
 
@@ -29,8 +34,14 @@
     height: 0.4em;
 }
 
-.ui-slider-horizontal .ui-slider-handle {
-    border-radius: 10px !important;
-    top: -1.5em;
-    background-color: blue;
+.slider_left_label {
+    text-align: left;
+    font-size: 0.8em;
+    margin: 10px 0;
+}
+
+.slider_right_label {
+    text-align: right;
+    font-size: 0.8em;
+    margin: 10px 0;
 }

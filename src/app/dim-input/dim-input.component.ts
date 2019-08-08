@@ -13,6 +13,7 @@ export class DimInputComponent implements AfterViewInit {
   @Input() color: string;
   @Input() yesNoVal: number;
   @Input() sliderVal: number;
+  @Input() preferences: boolean;
   @Output() change = new EventEmitter<Object>();
 
   constructor() {

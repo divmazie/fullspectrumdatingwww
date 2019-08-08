@@ -54,7 +54,7 @@ export class SignupComponent implements OnInit {
       this.errorMessage = response['errorMessage'];
       this.showError = true;
     }
-    if (this.pictureDay) {
+    if (this.pictureDay && response['data'].length) {
       // alert(response['data']);
       this.router.navigate(['/newuser/' + response['data'].replace('*', '')]);
     }

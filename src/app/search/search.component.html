@@ -1,16 +1,18 @@
-<div class="app-content">
+<div class="app-content no-gutter">
   <div class="sub-nav-container">
     <a class="sub-nav" (click)="view='preferences'"
        [ngClass]="view==='preferences' ? 'active' : ''">Set Preferences</a>
     <a class="sub-nav" (click)="view='matches'"
        [ngClass]="view==='matches' ? 'active' : ''">See Matches</a>
+    <a class="sub-nav d-inline d-md-none" (click)="match_detail=null"
+       *ngIf="match_detail">Back to list</a>
   </div>
   <div [hidden]="view !== 'preferences'">
     <app-dimensions-ui [preferences]="true"></app-dimensions-ui>
   </div>
   <div [hidden]="view !== 'matches'">
     <div class="row">
-      <div class="col-lg-4">
+      <div class="col-12 col-md-4 d-md-block" [ngClass]="match_detail ? 'd-none' : ''">
         <div *ngFor="let match of matches" class="match-preview" (click)="getMatch(match.id)">
           <img class="match-preview-thumbnail" src="assets/vitruvian-man.jpg" />
           <div class="match-preview-text">
@@ -32,7 +34,7 @@
           <div style="clear: both;"></div>
         </div>
       </div>
-      <div class="col-lg-8">
+      <div class="col-md-8">
         <app-match *ngIf="match_detail" [match]="match_detail" [theyLikeYou]="theyLikeYou" [youLikeThem]="youLikeThem" [youNotLikeThem]="youNotLikeThem"></app-match>
       </div>
     </div>
