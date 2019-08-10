@@ -1,6 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {ApiService} from '../api.service';
-import {Match, MatchDim} from '../match/match.component';
+import { Location } from '@angular/common';
+import { HostListener } from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
 
 export interface Profile {
     id: number;
@@ -10,6 +12,11 @@ export interface Profile {
     top_preferences: string[];
 }
 
+enum Views {
+    preferences,
+    matches,
+}
+
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
@@ -17,20 +24,26 @@ export interface Profile {
 })
 export class SearchComponent implements OnInit {
   matches: Profile[];
-  view: string;
-  match_detail: Match;
-  theyLikeYou: MatchDim[];
-  youLikeThem: MatchDim[];
-  youNotLikeThem: MatchDim[];
+  view: Views;
+  match_detail: boolean;
 
-  constructor(private apiService: ApiService) {
+  get viewsEnum() { return Views; }
+
+  constructor(private apiService: ApiService, private location: Location, private activatedRoute: ActivatedRoute) {
     this.matches = [];
-    this.view = 'preferences';
+    this.view = Views.preferences;
   }
 
   ngOnInit() {
+      this.match_detail = false;
       this.apiService.getMatches()
           .subscribe(response => this.processGetMatches(response));
+      this.activatedRoute.params.subscribe(params => {
+          if (params['id']) {
+              this.match_detail = true;
+              this.view = Views.matches;
+          }
+      });
   }
 
   processGetMatches(response) {
@@ -49,16 +62,16 @@ export class SearchComponent implements OnInit {
       }
   }
 
-  getMatch(profile_id) {
-      this.apiService.getMatch(profile_id).subscribe(response => this.processGetMatch(response));
+  back() {
+      this.location.back();
+      this.match_detail = false;
   }
 
-  processGetMatch(response) {
-      this.match_detail = response.data.match;
-      this.theyLikeYou = response.data.theyLikeYou;
-      this.youLikeThem = response.data.youLikeThem;
-      this.youNotLikeThem = response.data.youNotLikeThem;
-      // alert(JSON.stringify(this.youNotLikeThem));
-  }
+    @HostListener('window:popstate', ['$event'])
+    onPopState(event) {
+        this.match_detail = false;
+        console.log('Back button pressed');
+    }
+
 
 }

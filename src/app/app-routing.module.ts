@@ -3,7 +3,7 @@ import { RouterModule, Routes }  from '@angular/router';
 
 import { SignupComponent } from './signup/signup.component';
 import { NewUserComponent } from './new-user/new-user.component';
-import {DimInputComponent} from './dim-input/dim-input.component';
+import {MatchComponent} from './match/match.component';
 import {PlaygroundComponent} from './playground/playground.component';
 import {SigninComponent} from './signin/signin.component';
 import {AuthGuardService} from './auth-guard.service';
@@ -17,7 +17,9 @@ const appRoutes: Routes = [
     {path: 'signin', component: SigninComponent},
     {path: 'home', redirectTo: '/myprofile', pathMatch: 'full'},
     {path: 'myprofile', component: MyprofileComponent, canActivate: [AuthGuardService]},
-    {path: 'search', component: SearchComponent, canActivate: [AuthGuardService]},
+    {path: 'search', component: SearchComponent, canActivate: [AuthGuardService], children: [
+            {path: ':id', component: MatchComponent}
+        ]},
     {path: 'playground', component: PlaygroundComponent},
     {path: '', redirectTo: '/signup', pathMatch: 'full'}
 ];

@@ -2,25 +2,35 @@ import { Component, OnInit } from '@angular/core';
 import {UserprofileService} from '../userprofile.service';
 import {ApiService} from '../api.service';
 
+enum Views {
+  identities,
+  info,
+}
+
 @Component({
   selector: 'app-myprofile',
   templateUrl: './myprofile.component.html',
   styleUrls: ['./myprofile.component.css']
 })
 export class MyprofileComponent implements OnInit {
-  view: string;
+  view: Views;
   preferred_name: string;
+    contact: string;
+
+  get viewsEnum() { return Views; }
 
   constructor(private userprofileService: UserprofileService, private apiService: ApiService) {
-    this.view = 'identities';
+    this.view = Views.identities;
   }
 
   ngOnInit() {
       this.preferred_name = this.userprofileService.preferred_name;
+      this.contact = this.userprofileService.contact;
   }
 
-  public savePreferredName() {
-    this.apiService.savePreferredName(this.preferred_name).subscribe(response => this.handle_response(response));
+  public saveProfile() {
+    const myProfile = {'preferred_name': this.preferred_name, 'contact': this.contact};
+    this.apiService.saveProfile(myProfile).subscribe(response => this.handle_response(response));
   }
 
   public handle_response(response) {

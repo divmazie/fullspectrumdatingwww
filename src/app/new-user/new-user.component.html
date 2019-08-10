@@ -7,5 +7,7 @@
   <br />
   <input type="password" [(ngModel)]="password2" placeholder="Confirm password" />
   <br />
+  <span>Password must be more than 8 characters</span>
+  <br />
   <button (click)="createButtonClick()" [disabled]="buttonDisabled()">Create Account</button>
 </p>

@@ -72,7 +72,9 @@ export class DimensionsUiComponent implements OnInit {
                                 slider: dim['slider'],
                                 defaultOrder: dim['dimension_id_values']['default_order']
                             };
-                            dim_cat.dimensions.push(newDim);
+                            if (!dim_cat.dimensions.find((element) => element.id === newDim.id)) {
+                                dim_cat.dimensions.push(newDim);
+                            }
                         }
                         dim_cat.dimensions = dim_cat.dimensions.sort((n1, n2) => n1.defaultOrder - n2.defaultOrder);
                     });

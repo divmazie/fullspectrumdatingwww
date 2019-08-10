@@ -111,8 +111,8 @@ export class ApiService {
       return this.getApiCall(request);
   }
 
-  public savePreferredName(name) {
-      const request = this.getRequestObject('profiles/save-preferred-name', name);
+  public saveProfile(name) {
+      const request = this.getRequestObject('profiles/save-profile', name);
       return this.getApiCall(request);
   }
 

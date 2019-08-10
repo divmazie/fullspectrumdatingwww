@@ -2,24 +2,60 @@
   <img src="assets/vitruvian-man.jpg" class="match-full-image" />
   <div class="match-full-text">
     <span class="match-full-name">{{match.preferred_name}}</span>
+    <br />
+    <span class="match-full-info">(Age) (Location)</span>
+    <!--
+    <br /><br />
+    <span *ngFor="let id of top_identities" [style.color]="id.category_values.color">
+      {{id.name}}
+    </span>
+    <br /><br />
+    Seeking...
+    <br />
+    <span *ngFor="let id of top_preferences" [style.color]="id.category_values.color">
+      {{id.name}}
+    </span>
+    -->
   </div>
   <div style="clear: both;"></div>
 </div>
-<div>
-  <div class="match-full-like">You like that they are...</div>
-  <span *ngFor="let match_dim of youLikeThem">
-    <span [style.font-size.px]="match_dim.match_value" [style.color]="match_dim.dimension.category_values.color">{{matchDimString(match_dim)}} </span>
-  </span>
+<div class="sub-nav-container">
+  <a class="sub-nav" (click)="view=viewsEnum.stats"
+     [ngClass]="view===viewsEnum.stats ? 'active' : ''">Stats</a>
+  <a class="sub-nav" (click)="view=viewsEnum.bio"
+     [ngClass]="view===viewsEnum.bio ? 'active' : ''">Bio</a>
+  <a class="sub-nav" (click)="view=viewsEnum.contact"
+     [ngClass]="view===viewsEnum.contact ? 'active' : ''">Contact</a>
 </div>
-<div>
-  <div class="match-full-like">They like that you are...</div>
-  <span *ngFor="let match_dim of theyLikeYou">
-    <span [style.font-size.px]="match_dim.match_value" [style.color]="match_dim.dimension.category_values.color">{{matchDimString(match_dim)}} </span>
-  </span>
+<div *ngIf="view===viewsEnum.stats">
+  <div>
+    <div class="match-full-like">You like that they are...</div>
+    <div class="word_cloud">
+      <span *ngFor="let match_dim of youLikeThem">
+        <span class="word_cloud_word" [style.font-size.px]="getDimFontSize(match_dim)" [style.color]="match_dim.dimension.category_values.color">{{matchDimString(match_dim)}} </span>
+      </span>
+    </div>
+  </div>
+  <div>
+    <div class="match-full-like">They like that you are...</div>
+    <div class="word_cloud">
+      <span *ngFor="let match_dim of theyLikeYou">
+        <span class="word_cloud_word" [style.font-size.px]="getDimFontSize(match_dim)" [style.color]="match_dim.dimension.category_values.color">{{matchDimString(match_dim)}} </span>
+      </span>
+    </div>
+  </div>
+  <div>
+    <div class="match-full-like">You might not like that they are...</div>
+    <div class="word_cloud">
+      <span *ngFor="let match_dim of youNotLikeThem">
+        <span class="word_cloud_word" [style.font-size.px]="getNegativeDimFontSize(match_dim)" [style.color]="match_dim.dimension.category_values.color">{{matchDimString(match_dim)}} </span>
+      </span>
+    </div>
+  </div>
 </div>
-<div>
-  <div class="match-full-like">You might not like that they are...</div>
-  <span *ngFor="let match_dim of youNotLikeThem">
-    <span [style.font-size.px]="-match_dim.match_value" [style.color]="match_dim.dimension.category_values.color">{{matchDimString(match_dim)}} </span>
-  </span>
+<div *ngIf="view===viewsEnum.bio">
+  Coming soon!
+</div>
+<div *ngIf="view===viewsEnum.contact">
+  {{match.contact}}
 </div>

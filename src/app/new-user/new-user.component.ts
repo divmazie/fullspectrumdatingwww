@@ -44,7 +44,7 @@ export class NewUserComponent implements OnInit {
   }
 
   buttonDisabled() {
-    if (this.password1.length < 10) {
+    if (this.password1.length < 8) {
       return true;
     }
     return this.password1 !== this.password2;

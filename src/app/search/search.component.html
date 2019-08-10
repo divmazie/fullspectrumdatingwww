@@ -1,19 +1,19 @@
 <div class="app-content no-gutter">
   <div class="sub-nav-container">
-    <a class="sub-nav" (click)="view='preferences'"
-       [ngClass]="view==='preferences' ? 'active' : ''">Set Preferences</a>
-    <a class="sub-nav" (click)="view='matches'"
-       [ngClass]="view==='matches' ? 'active' : ''">See Matches</a>
-    <a class="sub-nav d-inline d-md-none" (click)="match_detail=null"
+    <a class="sub-nav" (click)="view=viewsEnum.preferences"
+       [ngClass]="view===viewsEnum.preferences ? 'active' : ''">Preferences</a>
+    <a class="sub-nav" (click)="view=viewsEnum.matches"
+       [ngClass]="view===viewsEnum.matches ? 'active' : ''">Matches</a>
+    <a class="sub-nav d-inline d-md-none" (click)="back()"
        *ngIf="match_detail">Back to list</a>
   </div>
-  <div [hidden]="view !== 'preferences'">
+  <div [hidden]="view !== viewsEnum.preferences">
     <app-dimensions-ui [preferences]="true"></app-dimensions-ui>
   </div>
-  <div [hidden]="view !== 'matches'">
+  <div [hidden]="view !== viewsEnum.matches">
     <div class="row">
       <div class="col-12 col-md-4 d-md-block" [ngClass]="match_detail ? 'd-none' : ''">
-        <div *ngFor="let match of matches" class="match-preview" (click)="getMatch(match.id)">
+        <a *ngFor="let match of matches" class="match-preview" routerLink="./{{match.id}}" (click)="match_detail=true;">
           <img class="match-preview-thumbnail" src="assets/vitruvian-man.jpg" />
           <div class="match-preview-text">
             <div class="profile_name">{{match.preferred_name}}</div>
@@ -32,10 +32,13 @@
             -->
           </div>
           <div style="clear: both;"></div>
-        </div>
+        </a>
       </div>
       <div class="col-md-8">
+        <router-outlet *ngIf="match_detail"></router-outlet>
+        <!--
         <app-match *ngIf="match_detail" [match]="match_detail" [theyLikeYou]="theyLikeYou" [youLikeThem]="youLikeThem" [youNotLikeThem]="youNotLikeThem"></app-match>
+        -->
       </div>
     </div>
   </div>

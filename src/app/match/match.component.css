@@ -12,7 +12,30 @@
 
 .match-full-name {
     font-family: 'Museo-slab', 'museo-slab', serif;
-    font-size: 2em;
+    font-size: 1.7em;
+}
+
+.match-full-info {
+    font-family: 'Museo-slab', 'museo-slab', serif;
+    font-size: 1.2em;
+    color: gray;
+}
+
+.sub-nav-container {
+    text-align: left;
+    margin: 20px;
+    color: black;
+}
+
+.sub-nav {
+    font-family: 'Museo-slab', 'museo-slab', serif;
+    cursor: pointer;
+    text-align: left;
+    padding: 15px;
+}
+
+.active {
+    color: #E266A4 !important;
 }
 
 .match-full-like {
@@ -20,4 +43,12 @@
     font-size: 1.5em;
     text-align: left;
     color: black;
+}
+
+.word_cloud {
+    margin-bottom: 20px;
+}
+
+.word_cloud_word {
+    line-height: 0.9em;
 }
