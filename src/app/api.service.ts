@@ -106,10 +106,15 @@ export class ApiService {
       return this.getApiCall(request);
   }
 
-  public getUserProfile() {
-      const request = this.getRequestObject('profiles/user-profile', false);
-      return this.getApiCall(request);
-  }
+    public getUserProfile() {
+        const request = this.getRequestObject('profiles/user-profile', false);
+        return this.getApiCall(request);
+    }
+
+    public getUserProfileMatch() {
+        const request = this.getRequestObject('profiles/user-profile-match', false);
+        return this.getApiCall(request);
+    }
 
   public saveProfile(name) {
       const request = this.getRequestObject('profiles/save-profile', name);

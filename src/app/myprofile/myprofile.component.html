@@ -3,13 +3,15 @@
     <a class="sub-nav" (click)="view=viewsEnum.identities"
        [ngClass]="view===viewsEnum.identities ? 'active' : ''">Identities</a>
     <a class="sub-nav" (click)="view=viewsEnum.info"
-       [ngClass]="view===viewsEnum.info ? 'active' : ''">Bio</a>
+       [ngClass]="view===viewsEnum.info ? 'active' : ''">Profile</a>
   </div>
 
   <div [hidden]="view !== viewsEnum.identities">
     <app-dimensions-ui [preferences]="false"></app-dimensions-ui>
   </div>
   <div [hidden]="view !== viewsEnum.info" >
+    <app-match [self]="true"></app-match>
+    <!--
     <label>Preferred Name: </label>
     <br />
     <input type="text" [(ngModel)]="preferred_name">
@@ -19,5 +21,6 @@
     <textarea [(ngModel)]="contact"></textarea>
     <br />
     <button (click)="saveProfile()" >Save</button>
+    -->
   </div>
 </div>

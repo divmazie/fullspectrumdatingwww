@@ -10,12 +10,12 @@ export class UserprofileService {
   contact: string;
 
   constructor(private apiService: ApiService) {
-      this.preferred_name = localStorage.getItem('user_profile_preferred_name');
-      this.birthday = localStorage.getItem('user_profile_birthday');
-      this.contact = localStorage.getItem('user_profile_contact');
-      if (this.infoEmpty()) {
+      // this.preferred_name = localStorage.getItem('user_profile_preferred_name');
+      // this.birthday = localStorage.getItem('user_profile_birthday');
+      // this.contact = localStorage.getItem('user_profile_contact');
+      // if (this.infoEmpty()) {
         this.getUserProfile();
-      }
+      // }
   }
 
   public infoEmpty() {
@@ -27,9 +27,9 @@ export class UserprofileService {
       this.preferred_name = info.preferred_name;
       this.birthday = info.birthday;
       this.contact = info.contact;
-      localStorage.setItem('user_profile_preferred_name', info.preferred_name);
-      localStorage.setItem('user_profile_birthday', info.birthday);
-      localStorage.setItem('user_profile_contact', info.contact);
+      // localStorage.setItem('user_profile_preferred_name', info.preferred_name);
+      // localStorage.setItem('user_profile_birthday', info.birthday);
+      // localStorage.setItem('user_profile_contact', info.contact);
   }
 
   public getUserProfile() {

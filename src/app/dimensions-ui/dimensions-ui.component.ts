@@ -128,4 +128,8 @@ export class DimensionsUiComponent implements OnInit {
         }, 200);
     }
 
+    trackByDims(index, element) {
+        return element ? element.name : undefined;
+    }
+
 }

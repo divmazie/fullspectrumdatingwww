@@ -1,32 +1,38 @@
-<div class="dimensions_ui">
-  <div *ngFor="let dim_cat of dim_cats">
-    <h3 (click)="showCategory(dim_cat.id)" [style.color]="dim_cat.color" class="dim_cat_name"
-        id="dim_cat_{{dim_cat.id}}">{{dim_cat.name}}</h3>
-    <div *ngIf="dim_cat.id==visible_cat">
-      <div class="row">
-        <div class="col-12 col-md-4">
-          <div *ngIf="preferences">I'd like to meet someone who is…</div>
-          <div *ngIf="!preferences">I am…</div>
-        </div>
-        <div class="d-none d-md-block col-md-8">
-          <div class="slider_left_label">
-            <div *ngIf="preferences">Not important</div>
-            <div *ngIf="!preferences">Don't allow search</div>
+<div class="row">
+  <div class="dimensions_ui" [ngClass]="visible_cat === -1 ? 'col-4' : 'col-12'">
+    <div *ngFor="let dim_cat of dim_cats">
+      <h3 (click)="showCategory(dim_cat.id)" [style.color]="dim_cat.color" class="dim_cat_name"
+          id="dim_cat_{{dim_cat.id}}">{{dim_cat.name}}</h3>
+      <div *ngIf="dim_cat.id==visible_cat">
+        <div class="row">
+          <div class="col-12 col-md-4">
+            <div *ngIf="preferences">I'd like to meet someone who is…</div>
+            <div *ngIf="!preferences">I am…</div>
           </div>
-          <div class="slider_right_label">
-            <div *ngIf="preferences">Very important</div>
-            <div *ngIf="!preferences">Easy to search</div>
+          <div class="d-none d-md-block col-md-8">
+            <div class="slider_left_label">
+              <div *ngIf="preferences">Not important</div>
+              <div *ngIf="!preferences">Don't allow search</div>
+            </div>
+            <div class="slider_right_label">
+              <div *ngIf="preferences">Very important</div>
+              <div *ngIf="!preferences">Easy to search</div>
+            </div>
           </div>
         </div>
+        <div *ngFor="let dim of dim_cat.dimensions; trackBy: trackByDims; let i = index;">
+          <app-dim-input [dimName]="dim.name" [color]="dim_cat.color" [yesNoVal]="dim.yesNo"
+                         [sliderVal]="dim.slider" (change)="getVals($event)"
+                         [hidden]="i>showMoreCutoff && !showMore" [preferences]="preferences">
+          </app-dim-input>
+          <!-- Value: {{dim.slider}} -->
+        </div>
+        <div [hidden]="showMore" (click)="showMore=true" class="show-more">Show More</div>
       </div>
-      <div *ngFor="let dim of dim_cat.dimensions; let i = index">
-        <app-dim-input [dimName]="dim.name" [color]="dim_cat.color" [yesNoVal]="dim.yesNo"
-                       [sliderVal]="dim.slider" (change)="getVals($event)"
-                       [hidden]="i>showMoreCutoff && !showMore" [preferences]="preferences">
-        </app-dim-input>
-        <!-- Value: {{dim.slider}} -->
-      </div>
-      <div [hidden]="showMore" (click)="showMore=true" class="show-more">Show More</div>
     </div>
+  </div>
+  <div *ngIf="visible_cat === -1" class="col-8 dimensions-instructions">
+    <div *ngIf="preferences">Your preferences are only visible to people whose identities match on those preferences.</div>
+    <div *ngIf="!preferences">Your identities are visible to everyone who expresses a preference one way or the other on those identities.</div>
   </div>
 </div>

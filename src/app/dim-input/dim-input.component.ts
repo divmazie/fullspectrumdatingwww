@@ -32,8 +32,7 @@ export class DimInputComponent implements AfterViewInit {
           step: 0.1,
           animate: 'fast',
           value: this.sliderVal,
-          slide: this.sliderChange.bind(this),
-          change: this.sliderChange.bind(this)
+          stop: this.sliderChange.bind(this)
       });
   }
 

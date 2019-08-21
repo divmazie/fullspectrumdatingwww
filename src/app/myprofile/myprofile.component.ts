@@ -24,8 +24,8 @@ export class MyprofileComponent implements OnInit {
   }
 
   ngOnInit() {
-      this.preferred_name = this.userprofileService.preferred_name;
-      this.contact = this.userprofileService.contact;
+    this.preferred_name = this.userprofileService.preferred_name;
+    this.contact = this.userprofileService.contact;
   }
 
   public saveProfile() {

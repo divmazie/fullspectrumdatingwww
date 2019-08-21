@@ -1,8 +1,13 @@
-<div>
+<div *ngIf="match">
   <img src="assets/vitruvian-man.jpg" class="match-full-image" />
   <div class="match-full-text">
-    <span class="match-full-name">{{match.preferred_name}}</span>
-    <br />
+    <div *ngIf="editing!==selfEditableEnum.preferred_name">
+      <span class="match-full-name">{{match.preferred_name}}</span>
+      <a class="edit" (click)="setEditing(selfEditableEnum.preferred_name)" *ngIf="self">Edit</a>
+    </div>
+    <div *ngIf="editing===selfEditableEnum.preferred_name">
+      <input type="text" [(ngModel)]="editText" (blur)="finishedEditing()" />
+    </div>
     <span class="match-full-info">(Age) (Location)</span>
     <!--
     <br /><br />
@@ -57,5 +62,11 @@
   Coming soon!
 </div>
 <div *ngIf="view===viewsEnum.contact">
-  {{match.contact}}
+  <div *ngIf="editing!==selfEditableEnum.contact">
+    <span class="match-contact">{{match.contact}}</span>
+    <a class="edit" (click)="setEditing(selfEditableEnum.contact)" *ngIf="self">Edit</a>
+  </div>
+  <div *ngIf="editing===selfEditableEnum.contact">
+    <textarea type="text" [(ngModel)]="editText" (blur)="finishedEditing()" ></textarea>
+  </div>
 </div>

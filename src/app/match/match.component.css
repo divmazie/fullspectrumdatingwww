@@ -10,6 +10,12 @@
     float: right;
 }
 
+.edit {
+    color: #E266A4;
+    cursor: pointer;
+    padding: 15px;
+}
+
 .match-full-name {
     font-family: 'Museo-slab', 'museo-slab', serif;
     font-size: 1.7em;
@@ -51,4 +57,9 @@
 
 .word_cloud_word {
     line-height: 0.9em;
+}
+
+.match-contact {
+    color: black;
+    padding: 20px;
 }

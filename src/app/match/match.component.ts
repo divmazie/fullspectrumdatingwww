@@ -3,6 +3,7 @@ import {Dimension} from '../dimensions-ui/dimensions-ui.component';
 import {DimensionCategoriesService} from '../dimension-categories.service';
 import {ActivatedRoute} from '@angular/router';
 import {ApiService} from '../api.service';
+import {SessionService} from '../session.service';
 
 export interface Match {
     preferred_name: string;
@@ -21,13 +22,26 @@ enum Views {
     contact,
 }
 
+enum SelfEditable {
+    preferred_name,
+    birthday,
+    nyc,
+    bio1,
+    bio2,
+    bio3,
+    contact
+}
+
 @Component({
   selector: 'app-match',
   templateUrl: './match.component.html',
   styleUrls: ['./match.component.css']
 })
 export class MatchComponent implements OnInit {
+    @Input() self?: boolean;
     match: Match;
+    editing: SelfEditable;
+    editText: string;
     theyLikeYou: MatchDim[];
     youLikeThem: MatchDim[];
     youNotLikeThem: MatchDim[];
@@ -38,12 +52,18 @@ export class MatchComponent implements OnInit {
 
     get viewsEnum() { return Views; }
 
+    get selfEditableEnum() { return SelfEditable; }
+
   constructor(private dimCatService: DimensionCategoriesService,
               private activatedRoute: ActivatedRoute,
               private apiService: ApiService) { }
 
   ngOnInit() {
-      this.activatedRoute.params.subscribe(params => this.getMatch(params['id']));
+      if (this.self) {
+          this.apiService.getUserProfileMatch().subscribe(response => this.processGetMatch(response));
+      } else {
+          this.activatedRoute.params.subscribe(params => this.getMatch(params['id']));
+      }
       this.view = Views.stats;
   }
 
@@ -100,12 +120,33 @@ export class MatchComponent implements OnInit {
       return 5 + (dim.match_value / this.maxMatchValue) * 50;
   }
 
-    getNegativeDimFontSize(dim) {
-        return 5 - (dim.match_value / this.maxMatchValue) * 50;
-    }
+  getNegativeDimFontSize(dim) {
+      return 5 - (dim.match_value / this.maxMatchValue) * 50;
+  }
 
   getDimCatColor(id: number) {
     return this.dimCatService.getColor(id);
+  }
+
+  setEditing(field: SelfEditable) {
+      this.editing = field;
+      switch (field) {
+          case SelfEditable.preferred_name: this.editText = this.match.preferred_name; break;
+          case SelfEditable.contact: this.editText = this.match.contact; break;
+      }
+  }
+
+  finishedEditing() {
+      let myProfile: object;
+      switch (this.editing) {
+          case SelfEditable.preferred_name: myProfile = {'preferred_name': this.editText};
+              this.match.preferred_name = this.editText; break;
+          case SelfEditable.contact: myProfile = {'contact': this.editText};
+              this.match.contact = this.editText; break;
+          default: myProfile = {}; break;
+      }
+      this.apiService.saveProfile(myProfile).subscribe(response => this.processGetMatch(response));
+      this.editing = null;
   }
 
 }
