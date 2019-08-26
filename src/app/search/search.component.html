@@ -14,7 +14,7 @@
     <div class="row">
       <div class="col-12 col-md-4 d-md-block" [ngClass]="match_detail ? 'd-none' : ''">
         <a *ngFor="let match of matches" class="match-preview" routerLink="./{{match.id}}" (click)="match_detail=true;">
-          <img class="match-preview-thumbnail" src="assets/vitruvian-man.jpg" />
+          <img class="match-preview-thumbnail" src="{{api_url}}pictures/{{match.picture_file}}" />
           <div class="match-preview-text">
             <div class="profile_name">{{match.preferred_name}}</div>
             <div>

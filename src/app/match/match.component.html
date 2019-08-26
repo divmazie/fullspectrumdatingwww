@@ -1,14 +1,24 @@
 <div *ngIf="match">
-  <img src="assets/vitruvian-man.jpg" class="match-full-image" />
+  <img src="{{api_url}}pictures/{{match.picture_file}}" class="match-full-image" />
   <div class="match-full-text">
+    <!-- NAME -->
     <div *ngIf="editing!==selfEditableEnum.preferred_name">
       <span class="match-full-name">{{match.preferred_name}}</span>
       <a class="edit" (click)="setEditing(selfEditableEnum.preferred_name)" *ngIf="self">Edit</a>
     </div>
     <div *ngIf="editing===selfEditableEnum.preferred_name">
-      <input type="text" [(ngModel)]="editText" (blur)="finishedEditing()" />
+      <input type="text" placeholder="Preferred Name" [(ngModel)]="editText" (blur)="finishedEditing()" />
     </div>
-    <span class="match-full-info">(Age) (Location)</span>
+    <!-- AGE -->
+    <div *ngIf="editing!==selfEditableEnum.birthday">
+      <span class="match-full-age">{{match.age}}</span>
+      <a class="edit" (click)="setEditing(selfEditableEnum.birthday)" *ngIf="self">Edit</a>
+    </div>
+    <div *ngIf="editing===selfEditableEnum.birthday">
+      <input type="text" placeholder="Birthday" [(ngModel)]="editText" (blur)="finishedEditing()" />
+    </div>
+    <!-- LOCATION -->
+    <span class="match-full-info">(Location)</span>
     <!--
     <br /><br />
     <span *ngFor="let id of top_identities" [style.color]="id.category_values.color">

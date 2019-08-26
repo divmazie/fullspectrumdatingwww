@@ -76,7 +76,17 @@ export class DimensionsUiComponent implements OnInit {
                                 dim_cat.dimensions.push(newDim);
                             }
                         }
-                        dim_cat.dimensions = dim_cat.dimensions.sort((n1, n2) => n1.defaultOrder - n2.defaultOrder);
+                        dim_cat.dimensions = dim_cat.dimensions.sort(function(n1, n2) {
+                            if (n1.yesNo == 0 && n2.yesNo == 0) {
+                                return n1.defaultOrder - n2.defaultOrder;
+                            } else if (n1.yesNo == 0) {
+                                return 1;
+                            } else if (n2.yesNo == 0) {
+                                return -1;
+                            } else {
+                                return n2.slider - n1.slider;
+                            }
+                        });
                     });
                 });
             }

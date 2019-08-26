@@ -3,11 +3,13 @@ import {ApiService} from '../api.service';
 import { Location } from '@angular/common';
 import { HostListener } from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
+import {environment} from '../../environments/environment';
 
 export interface Profile {
     id: number;
     preferred_name: string;
     birthday: string;
+    picture_file: string;
     top_identities: string[];
     top_preferences: string[];
 }
@@ -26,6 +28,7 @@ export class SearchComponent implements OnInit {
   matches: Profile[];
   view: Views;
   match_detail: boolean;
+  api_url = environment.apiUrl;
 
   get viewsEnum() { return Views; }
 
@@ -54,6 +57,7 @@ export class SearchComponent implements OnInit {
                   id: match['id'],
                   preferred_name: match['preferred_name'],
                   birthday: match['birthday'],
+                  picture_file: match['picture_file'],
                   top_identities: match['top_identities'],
                   top_preferences: match['top_preferences']
               };

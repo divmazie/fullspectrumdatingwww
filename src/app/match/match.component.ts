@@ -4,10 +4,14 @@ import {DimensionCategoriesService} from '../dimension-categories.service';
 import {ActivatedRoute} from '@angular/router';
 import {ApiService} from '../api.service';
 import {SessionService} from '../session.service';
+import {environment} from '../../environments/environment';
 
 export interface Match {
     preferred_name: string;
     profile_id: number;
+    age: number;
+    birthday?: string;
+    picture_file: string;
     contact: string;
 }
 export interface MatchDim {
@@ -49,6 +53,7 @@ export class MatchComponent implements OnInit {
     view: Views;
     top_identities: Dimension[];
     top_preferences: Dimension[];
+    api_url = environment.apiUrl;
 
     get viewsEnum() { return Views; }
 
@@ -133,20 +138,39 @@ export class MatchComponent implements OnInit {
       switch (field) {
           case SelfEditable.preferred_name: this.editText = this.match.preferred_name; break;
           case SelfEditable.contact: this.editText = this.match.contact; break;
+          case SelfEditable.birthday: this.editText = this.match.birthday; break;
       }
   }
 
   finishedEditing() {
       let myProfile: object;
+      if (!this.editFieldValid()) {
+          return;
+      }
       switch (this.editing) {
           case SelfEditable.preferred_name: myProfile = {'preferred_name': this.editText};
               this.match.preferred_name = this.editText; break;
           case SelfEditable.contact: myProfile = {'contact': this.editText};
               this.match.contact = this.editText; break;
+          case SelfEditable.birthday: myProfile = {'birthday': this.editText}; break;
           default: myProfile = {}; break;
       }
       this.apiService.saveProfile(myProfile).subscribe(response => this.processGetMatch(response));
       this.editing = null;
+  }
+
+  editFieldValid() {
+      let valid = true;
+      switch (this.editing) {
+          case SelfEditable.birthday:
+              valid = new RegExp('^([12]\\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01]))$').test(this.editText);
+              if (!valid) {
+                  alert('Please enter birthday with format YYYY-MM-DD');
+              }
+              break;
+          default: valid = true;
+      }
+      return valid;
   }
 
 }

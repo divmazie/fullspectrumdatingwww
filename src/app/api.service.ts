@@ -23,12 +23,9 @@ export class ApiService {
   private getRequestObject(resource, data) {
       const request = {
           resource: resource,
-          data: null,
+          data: data ? data : null,
           session_info: {id: this.sessionService.id, hash: this.sessionService.hash}
       };
-      if (data) {
-          request.data = data;
-      }
       return request;
   }
 
