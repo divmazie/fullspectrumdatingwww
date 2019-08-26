@@ -17,6 +17,7 @@
           <img class="match-preview-thumbnail" src="{{api_url}}pictures/{{match.picture_file}}" />
           <div class="match-preview-text">
             <div class="profile_name">{{match.preferred_name}}</div>
+            <div >{{match.bioline}}</div>
             <div>
               <span *ngFor="let id of match.top_identities" [style.color]="id.category_values.color">
                 {{id.name}}

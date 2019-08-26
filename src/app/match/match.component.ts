@@ -11,8 +11,12 @@ export interface Match {
     profile_id: number;
     age: number;
     birthday?: string;
+    bioline: string;
     picture_file: string;
     contact: string;
+    bio1: string;
+    bio2: string;
+    bio3: string;
 }
 export interface MatchDim {
     dimension: Dimension;
@@ -30,6 +34,7 @@ enum SelfEditable {
     preferred_name,
     birthday,
     nyc,
+    bioline,
     bio1,
     bio2,
     bio3,
@@ -139,6 +144,10 @@ export class MatchComponent implements OnInit {
           case SelfEditable.preferred_name: this.editText = this.match.preferred_name; break;
           case SelfEditable.contact: this.editText = this.match.contact; break;
           case SelfEditable.birthday: this.editText = this.match.birthday; break;
+          case SelfEditable.bioline: this.editText = this.match.bioline; break;
+          case SelfEditable.bio1: this.editText = this.match.bio1; break;
+          case SelfEditable.bio2: this.editText = this.match.bio2; break;
+          case SelfEditable.bio3: this.editText = this.match.bio3; break;
       }
   }
 
@@ -153,6 +162,14 @@ export class MatchComponent implements OnInit {
           case SelfEditable.contact: myProfile = {'contact': this.editText};
               this.match.contact = this.editText; break;
           case SelfEditable.birthday: myProfile = {'birthday': this.editText}; break;
+          case SelfEditable.bioline: myProfile = {'bioline': this.editText};
+              this.match.bioline = this.editText; break;
+          case SelfEditable.bio1: myProfile = {'bio1': this.editText};
+              this.match.bio1 = this.editText; break;
+          case SelfEditable.bio2: myProfile = {'bio2': this.editText};
+              this.match.bio2 = this.editText; break;
+          case SelfEditable.bio3: myProfile = {'bio3': this.editText};
+              this.match.bio3 = this.editText; break;
           default: myProfile = {}; break;
       }
       this.apiService.saveProfile(myProfile).subscribe(response => this.processGetMatch(response));
@@ -162,6 +179,9 @@ export class MatchComponent implements OnInit {
   editFieldValid() {
       let valid = true;
       switch (this.editing) {
+          case SelfEditable.preferred_name:
+              valid = !!this.editText.length;
+              break;
           case SelfEditable.birthday:
               valid = new RegExp('^([12]\\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01]))$').test(this.editText);
               if (!valid) {

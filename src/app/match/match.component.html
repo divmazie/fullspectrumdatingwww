@@ -17,6 +17,14 @@
     <div *ngIf="editing===selfEditableEnum.birthday">
       <input type="text" placeholder="Birthday" [(ngModel)]="editText" (blur)="finishedEditing()" />
     </div>
+    <!-- Bio Line -->
+    <div *ngIf="editing!==selfEditableEnum.bioline">
+      <span class="match-full-age">{{match.bioline}}</span>
+      <a class="edit" (click)="setEditing(selfEditableEnum.bioline)" *ngIf="self">Edit</a>
+    </div>
+    <div *ngIf="editing===selfEditableEnum.bioline">
+      <input type="text" placeholder="Human" [(ngModel)]="editText" (blur)="finishedEditing()" />
+    </div>
     <!-- LOCATION -->
     <span class="match-full-info">(Location)</span>
     <!--
@@ -69,7 +77,38 @@
   </div>
 </div>
 <div *ngIf="view===viewsEnum.bio">
-  Coming soon!
+  <div class="match-full-like">I am passionate about...</div>
+  <!-- Bio 1 -->
+  <div *ngIf="editing!==selfEditableEnum.bio1">
+    <span class="">{{match.bio1}}</span>
+    <a class="edit" (click)="setEditing(selfEditableEnum.bio1)" *ngIf="self">Edit</a>
+  </div>
+  <div *ngIf="editing===selfEditableEnum.bio1">
+    <textarea placeholder="" [(ngModel)]="editText" (blur)="finishedEditing()" ></textarea>
+  </div>
+
+  <div class="match-full-like">My days are filled with...</div>
+  <!-- Bio 2 -->
+  <div *ngIf="editing!==selfEditableEnum.bio2">
+    <span class="">{{match.bio2}}</span>
+    <a class="edit" (click)="setEditing(selfEditableEnum.bio2)" *ngIf="self">Edit</a>
+  </div>
+  <div *ngIf="editing===selfEditableEnum.bio2">
+    <textarea placeholder="" [(ngModel)]="editText" (blur)="finishedEditing()" ></textarea>
+  </div>
+
+  <div class="match-full-like">Things I'd like to share with someone new</div>
+  <!-- Bio 3 -->
+  <div *ngIf="editing!==selfEditableEnum.bio3">
+    <span class="">{{match.bio3}}</span>
+    <a class="edit" (click)="setEditing(selfEditableEnum.bio3)" *ngIf="self">Edit</a>
+  </div>
+  <div *ngIf="editing===selfEditableEnum.bio3">
+    <textarea placeholder="" [(ngModel)]="editText" (blur)="finishedEditing()" ></textarea>
+  </div>
+
+
+
 </div>
 <div *ngIf="view===viewsEnum.contact">
   <div *ngIf="editing!==selfEditableEnum.contact">

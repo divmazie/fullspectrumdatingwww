@@ -8,7 +8,7 @@ import {environment} from '../../environments/environment';
 export interface Profile {
     id: number;
     preferred_name: string;
-    birthday: string;
+    bioline: string;
     picture_file: string;
     top_identities: string[];
     top_preferences: string[];
@@ -53,15 +53,7 @@ export class SearchComponent implements OnInit {
       const _this = this;
       if (response['status'] === 1) {
           response['data']['matches'].forEach(function (match) {
-              const newMatch = {
-                  id: match['id'],
-                  preferred_name: match['preferred_name'],
-                  birthday: match['birthday'],
-                  picture_file: match['picture_file'],
-                  top_identities: match['top_identities'],
-                  top_preferences: match['top_preferences']
-              };
-              _this.matches.push(newMatch);
+              _this.matches.push(match);
           });
       }
   }
