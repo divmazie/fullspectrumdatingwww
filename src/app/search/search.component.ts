@@ -19,6 +19,8 @@ enum Views {
     matches,
 }
 
+declare var $: any;
+
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
@@ -47,6 +49,15 @@ export class SearchComponent implements OnInit {
               this.view = Views.matches;
           }
       });
+      const constrainHeight = function() {
+          // TODO: Set height difference programatically
+          const matchView = $('#matches_view');
+          matchView.css({ height: $(window).innerHeight() - 175 });
+      };
+      constrainHeight();
+      $(window).resize(function() {
+          constrainHeight();
+      });
   }
 
   processGetMatches(response) {
@@ -56,6 +67,11 @@ export class SearchComponent implements OnInit {
               _this.matches.push(match);
           });
       }
+  }
+
+  matchClicked() {
+      this.match_detail = true;
+      $('#match_detail').scrollTop(0);
   }
 
   back() {

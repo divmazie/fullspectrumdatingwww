@@ -10,10 +10,10 @@
   <div [hidden]="view !== viewsEnum.preferences">
     <app-dimensions-ui [preferences]="true"></app-dimensions-ui>
   </div>
-  <div [hidden]="view !== viewsEnum.matches">
-    <div class="row">
-      <div class="col-12 col-md-4 d-md-block" [ngClass]="match_detail ? 'd-none' : ''">
-        <a *ngFor="let match of matches" class="match-preview" routerLink="./{{match.id}}" (click)="match_detail=true;">
+  <div [hidden]="view !== viewsEnum.matches" id="matches_view">
+    <div class="row" style="height: 100%;">
+      <div class="col-12 col-md-4 d-md-block" id="matches_list" [ngClass]="match_detail ? 'd-none' : ''">
+        <a *ngFor="let match of matches" class="match-preview" routerLink="./{{match.id}}" (click)="matchClicked()">
           <img class="match-preview-thumbnail" src="{{api_url}}pictures/{{match.picture_file}}" />
           <div class="match-preview-text">
             <div class="profile_name">{{match.preferred_name}}</div>
@@ -35,7 +35,7 @@
           <div style="clear: both;"></div>
         </a>
       </div>
-      <div class="col-md-8">
+      <div class="col-md-8" id="match_detail">
         <router-outlet *ngIf="match_detail"></router-outlet>
         <!--
         <app-match *ngIf="match_detail" [match]="match_detail" [theyLikeYou]="theyLikeYou" [youLikeThem]="youLikeThem" [youNotLikeThem]="youNotLikeThem"></app-match>
