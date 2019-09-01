@@ -1,13 +1,21 @@
-<p>
+<div>
   New user...
   <br />
-  <input type="email" [(ngModel)]="email" placeholder="Email" [disabled]="email" />
-  <br />
-  <input type="password" [(ngModel)]="password1" placeholder="Password" />
-  <br />
-  <input type="password" [(ngModel)]="password2" placeholder="Confirm password" />
-  <br />
-  <span>Password must be more than 8 characters</span>
-  <br />
-  <button (click)="createButtonClick()" [disabled]="buttonDisabled()">Create Account</button>
-</p>
+  <form (ngSubmit)="createButtonClick()">
+    <mat-form-field>
+      <input matInput type="email" [(ngModel)]="email" name="Email" placeholder="Email" [disabled]="email" />
+    </mat-form-field>
+    <br />
+    <mat-form-field>
+      <input matInput type="password" [(ngModel)]="password1" name="Password" placeholder="Password" />
+    </mat-form-field>
+    <br />
+    <mat-form-field>
+      <input matInput type="password" [(ngModel)]="password2" name="Confirm password" placeholder="Confirm password" />
+    </mat-form-field>
+    <br />
+    <span>Password must be more than 8 characters</span>
+    <br />
+    <button type="submit" [disabled]="buttonDisabled()">Create Account</button>
+  </form>
+</div>

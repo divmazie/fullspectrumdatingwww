@@ -42,3 +42,5 @@ p {
     top: -0.5em !important;
     background-color: lightgray !important;
 }
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

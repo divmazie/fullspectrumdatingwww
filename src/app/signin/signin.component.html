@@ -1,9 +1,15 @@
-<p>
+<div>
   Sign in...
   <br />
-  <input type="email" [(ngModel)]="email" placeholder="Email" />
-  <br />
-  <input type="password" [(ngModel)]="password1" placeholder="Password" />
-  <br />
-  <button (click)="signinButtonClick()" [disabled]="buttonDisabled()">Sign in</button>
-</p>
+  <form (ngSubmit)="signinButtonClick()">
+    <mat-form-field>
+      <input matInput type="email" name="email" [(ngModel)]="email" placeholder="Email" />
+    </mat-form-field>
+    <br />
+    <mat-form-field>
+      <input matInput type="password" name="password" [(ngModel)]="password1" placeholder="Password" />
+    </mat-form-field>
+    <br />
+    <button type="submit" mat-raised-button [disabled]="buttonDisabled()">Sign in</button>
+  </form>
+</div>

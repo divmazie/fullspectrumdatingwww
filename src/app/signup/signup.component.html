@@ -46,18 +46,24 @@
   </div>
 </div>
 
-<input type="checkbox" id="consent" [(ngModel)]="consent">
-<label for="consent" > I can handle this!</label>
+<mat-checkbox [(ngModel)]="consent">
+  I can handle this!
+</mat-checkbox>
 
 <div *ngIf="consent">
     <div *ngIf="!showThanks">
       Be an alpha user!
-      <input type="text" [(ngModel)]="emailinput" (keyup)="checkEmailFormat()" placeholder="Email" />
-      <button (click)="submitEmail()" [disabled]="submitdisabled">Sign up</button>
-      <div *ngIf="showError">{{errorMessage}}</div>
+      <form (ngSubmit)="submitEmail()">
+        <mat-form-field>
+          <input matInput type="text" [(ngModel)]="emailinput" (keyup)="checkEmailFormat()" name="Email" placeholder="Email" />
+        </mat-form-field>
+        <button mat-raised-button type="submit" [disabled]="submitdisabled">Sign up</button>
+        <div *ngIf="showError">{{errorMessage}}</div>
+      </form>
     </div>
     <div *ngIf="showThanks">Thanks for signing up! We'll be in touch!</div>
   <div class="already-member">
     Already a member? <a href="/signin">Sign in</a>
   </div>
 </div>
+<div style="height: 60px;"></div>
