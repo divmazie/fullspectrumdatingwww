@@ -7,7 +7,12 @@
       <a class="edit" (click)="setEditing(selfEditableEnum.preferred_name)" *ngIf="self">Edit</a>
     </div>
     <div *ngIf="editing===selfEditableEnum.preferred_name">
-      <input type="text" placeholder="Preferred Name" [(ngModel)]="editText" (blur)="finishedEditing()" />
+      <form (ngSubmit)="finishedEditing()">
+        <mat-form-field>
+          <input matInput id="input_preferred_name" type="text" name="preferred_name"
+                 placeholder="Preferred Name" [(ngModel)]="editText" (blur)="finishedEditing()" />
+        </mat-form-field>
+      </form>
     </div>
     <!-- AGE -->
     <div *ngIf="editing!==selfEditableEnum.birthday">
@@ -15,7 +20,14 @@
       <a class="edit" (click)="setEditing(selfEditableEnum.birthday)" *ngIf="self">Edit</a>
     </div>
     <div *ngIf="editing===selfEditableEnum.birthday">
-      <input type="text" placeholder="Birthday" [(ngModel)]="editText" (blur)="finishedEditing()" />
+      <form (ngSubmit)="finishedEditing()">
+        <mat-form-field>
+          <input matInput name="birthday" id="input_birthday" type="text" placeholder="Birthday"
+                 [(ngModel)]="editText" [matDatepicker]="birthday_picker" />
+          <mat-datepicker-toggle matPrefix [for]="birthday_picker"></mat-datepicker-toggle>
+          <mat-datepicker [opened]="true" (closed)="finishedEditing()" #birthday_picker></mat-datepicker>
+        </mat-form-field>
+      </form>
     </div>
     <!-- Bio Line -->
     <div *ngIf="editing!==selfEditableEnum.bioline">
@@ -23,10 +35,25 @@
       <a class="edit" (click)="setEditing(selfEditableEnum.bioline)" *ngIf="self">Edit</a>
     </div>
     <div *ngIf="editing===selfEditableEnum.bioline">
-      <input type="text" placeholder="Human" [(ngModel)]="editText" (blur)="finishedEditing()" />
+      <form (ngSubmit)="finishedEditing()">
+        <mat-form-field>
+          <input matInput type="text" name="bioline" id="input_bioline" placeholder="Human"
+                 [(ngModel)]="editText" (blur)="finishedEditing()" />
+        </mat-form-field>
+      </form>
     </div>
     <!-- LOCATION -->
-    <span class="match-full-info">(Location)</span>
+    <div *ngIf="self">
+      <mat-radio-group [(ngModel)]="match.nyc">
+        <mat-radio-button value="1" (click)="setNYC(true)">New York City area</mat-radio-button>
+        <br />
+        <mat-radio-button value="0" (click)="setNYC(false)">Outside of the New York City area</mat-radio-button>
+      </mat-radio-group>
+    </div>
+    <div *ngIf="!self">
+      <div *ngIf="match.nyc==1">New York City area</div>
+      <div *ngIf="match.nyc==0">Outside of the New York City area</div>
+    </div>
     <!--
     <br /><br />
     <span *ngFor="let id of top_identities" [style.color]="id.category_values.color">
@@ -42,80 +69,106 @@
   </div>
   <div style="clear: both;"></div>
 </div>
-<div class="sub-nav-container">
-  <a class="sub-nav" (click)="view=viewsEnum.stats"
-     [ngClass]="view===viewsEnum.stats ? 'active' : ''">Stats</a>
-  <a class="sub-nav" (click)="view=viewsEnum.bio"
-     [ngClass]="view===viewsEnum.bio ? 'active' : ''">Bio</a>
-  <a class="sub-nav" (click)="view=viewsEnum.contact"
-     [ngClass]="view===viewsEnum.contact ? 'active' : ''">Contact</a>
-</div>
-<div *ngIf="view===viewsEnum.stats">
-  <div>
-    <div class="match-full-like">You like that they are...</div>
-    <div class="word_cloud">
-      <span *ngFor="let match_dim of youLikeThem">
-        <span class="word_cloud_word" [style.font-size.px]="getDimFontSize(match_dim)" [style.color]="match_dim.dimension.category_values.color">{{matchDimString(match_dim)}} </span>
-      </span>
+<div class="match-full-bottom">
+  <div class="sub-nav-container">
+    <a class="sub-nav" (click)="view=viewsEnum.stats"
+       [ngClass]="view===viewsEnum.stats ? 'active' : ''">Stats</a>
+    <a class="sub-nav" (click)="view=viewsEnum.bio"
+       [ngClass]="view===viewsEnum.bio ? 'active' : ''">Bio</a>
+    <a class="sub-nav" (click)="view=viewsEnum.contact"
+       [ngClass]="view===viewsEnum.contact ? 'active' : ''">Contact</a>
+  </div>
+  <div *ngIf="view===viewsEnum.stats">
+    <div>
+      <div class="match-full-like">You like that they are...</div>
+      <div class="word_cloud">
+        <span *ngFor="let match_dim of youLikeThem">
+          <span class="word_cloud_word" [style.font-size.px]="getDimFontSize(match_dim)" [style.color]="match_dim.dimension.category_values.color">{{matchDimString(match_dim)}} </span>
+        </span>
+      </div>
+    </div>
+    <div>
+      <div class="match-full-like">They like that you are...</div>
+      <div class="word_cloud">
+        <span *ngFor="let match_dim of theyLikeYou">
+          <span class="word_cloud_word" [style.font-size.px]="getDimFontSize(match_dim)" [style.color]="match_dim.dimension.category_values.color">{{matchDimString(match_dim)}} </span>
+        </span>
+      </div>
+    </div>
+    <div>
+      <div class="match-full-like">You might not like that they are...</div>
+      <div class="word_cloud">
+        <span *ngFor="let match_dim of youNotLikeThem">
+          <span class="word_cloud_word" [style.font-size.px]="getNegativeDimFontSize(match_dim)" [style.color]="match_dim.dimension.category_values.color">{{matchDimString(match_dim)}} </span>
+        </span>
+      </div>
     </div>
   </div>
-  <div>
-    <div class="match-full-like">They like that you are...</div>
-    <div class="word_cloud">
-      <span *ngFor="let match_dim of theyLikeYou">
-        <span class="word_cloud_word" [style.font-size.px]="getDimFontSize(match_dim)" [style.color]="match_dim.dimension.category_values.color">{{matchDimString(match_dim)}} </span>
-      </span>
+  <div *ngIf="view===viewsEnum.bio">
+    <div class="match-full-like">I am passionate about...</div>
+    <!-- Bio 1 -->
+    <div *ngIf="editing!==selfEditableEnum.bio1" class="match-essay">
+      <span>{{match.bio1}}</span>
+      <a class="edit" (click)="setEditing(selfEditableEnum.bio1)" *ngIf="self">Edit</a>
     </div>
-  </div>
-  <div>
-    <div class="match-full-like">You might not like that they are...</div>
-    <div class="word_cloud">
-      <span *ngFor="let match_dim of youNotLikeThem">
-        <span class="word_cloud_word" [style.font-size.px]="getNegativeDimFontSize(match_dim)" [style.color]="match_dim.dimension.category_values.color">{{matchDimString(match_dim)}} </span>
-      </span>
+    <div *ngIf="editing===selfEditableEnum.bio1">
+      <form (ngSubmit)="finishedEditing()">
+        <mat-form-field style="width: 90%;">
+          <textarea matInput cdkTextareaAutosize cdkAutosizeMinRows="2"
+                    cdkAutosizeMaxRows="10" name="contact" id="input_bio1" type="text"
+                    [(ngModel)]="editText" (blur)="finishedEditing()" ></textarea>
+        </mat-form-field>
+      </form>
     </div>
-  </div>
-</div>
-<div *ngIf="view===viewsEnum.bio">
-  <div class="match-full-like">I am passionate about...</div>
-  <!-- Bio 1 -->
-  <div *ngIf="editing!==selfEditableEnum.bio1">
-    <span class="">{{match.bio1}}</span>
-    <a class="edit" (click)="setEditing(selfEditableEnum.bio1)" *ngIf="self">Edit</a>
-  </div>
-  <div *ngIf="editing===selfEditableEnum.bio1">
-    <textarea placeholder="" [(ngModel)]="editText" (blur)="finishedEditing()" ></textarea>
-  </div>
 
-  <div class="match-full-like">My days are filled with...</div>
-  <!-- Bio 2 -->
-  <div *ngIf="editing!==selfEditableEnum.bio2">
-    <span class="">{{match.bio2}}</span>
-    <a class="edit" (click)="setEditing(selfEditableEnum.bio2)" *ngIf="self">Edit</a>
-  </div>
-  <div *ngIf="editing===selfEditableEnum.bio2">
-    <textarea placeholder="" [(ngModel)]="editText" (blur)="finishedEditing()" ></textarea>
-  </div>
+    <div class="match-full-like">My days are filled with...</div>
+    <!-- Bio 2 -->
+    <div *ngIf="editing!==selfEditableEnum.bio2" class="match-essay">
+      <span>{{match.bio2}}</span>
+      <a class="edit" (click)="setEditing(selfEditableEnum.bio2)" *ngIf="self">Edit</a>
+    </div>
+    <div *ngIf="editing===selfEditableEnum.bio2">
+      <form (ngSubmit)="finishedEditing()">
+        <mat-form-field style="width: 90%;">
+          <textarea matInput cdkTextareaAutosize cdkAutosizeMinRows="2"
+                    cdkAutosizeMaxRows="10" name="contact" id="input_bio2" type="text"
+                    [(ngModel)]="editText" (blur)="finishedEditing()" ></textarea>
+        </mat-form-field>
+      </form>
+    </div>
 
-  <div class="match-full-like">Things I'd like to share with someone new</div>
-  <!-- Bio 3 -->
-  <div *ngIf="editing!==selfEditableEnum.bio3">
-    <span class="">{{match.bio3}}</span>
-    <a class="edit" (click)="setEditing(selfEditableEnum.bio3)" *ngIf="self">Edit</a>
-  </div>
-  <div *ngIf="editing===selfEditableEnum.bio3">
-    <textarea placeholder="" [(ngModel)]="editText" (blur)="finishedEditing()" ></textarea>
-  </div>
+    <div class="match-full-like">Things I'd like to share with someone new</div>
+    <!-- Bio 3 -->
+    <div *ngIf="editing!==selfEditableEnum.bio3" class="match-essay">
+      <span>{{match.bio3}}</span>
+      <a class="edit" (click)="setEditing(selfEditableEnum.bio3)" *ngIf="self">Edit</a>
+    </div>
+    <div *ngIf="editing===selfEditableEnum.bio3">
+      <form (ngSubmit)="finishedEditing()">
+        <mat-form-field style="width: 90%;">
+          <textarea matInput cdkTextareaAutosize cdkAutosizeMinRows="2"
+                    cdkAutosizeMaxRows="10" name="contact" id="input_bio3" type="text"
+                    [(ngModel)]="editText" (blur)="finishedEditing()" ></textarea>
+        </mat-form-field>
+      </form>
+    </div>
 
 
 
-</div>
-<div *ngIf="view===viewsEnum.contact">
-  <div *ngIf="editing!==selfEditableEnum.contact">
-    <span class="match-contact">{{match.contact}}</span>
-    <a class="edit" (click)="setEditing(selfEditableEnum.contact)" *ngIf="self">Edit</a>
   </div>
-  <div *ngIf="editing===selfEditableEnum.contact">
-    <textarea type="text" [(ngModel)]="editText" (blur)="finishedEditing()" ></textarea>
+  <div *ngIf="view===viewsEnum.contact">
+    <div *ngIf="editing!==selfEditableEnum.contact" class="match-essay">
+      <span>{{match.contact}}</span>
+      <a class="edit" (click)="setEditing(selfEditableEnum.contact)" *ngIf="self">Edit</a>
+    </div>
+    <div *ngIf="editing===selfEditableEnum.contact">
+      <form (ngSubmit)="finishedEditing()">
+        <mat-form-field style="width: 90%;">
+          <textarea matInput cdkTextareaAutosize cdkAutosizeMinRows="2"
+                    cdkAutosizeMaxRows="10" name="contact" id="input_contact" type="text"
+                    [(ngModel)]="editText" (blur)="finishedEditing()" ></textarea>
+        </mat-form-field>
+      </form>
+    </div>
   </div>
 </div>

@@ -13,6 +13,7 @@ export interface Match {
     birthday?: string;
     bioline: string;
     picture_file: string;
+    nyc: number;
     contact: string;
     bio1: string;
     bio2: string;
@@ -40,6 +41,8 @@ enum SelfEditable {
     bio3,
     contact
 }
+
+declare var $: any;
 
 @Component({
   selector: 'app-match',
@@ -139,31 +142,44 @@ export class MatchComponent implements OnInit {
   }
 
   setEditing(field: SelfEditable) {
+      this.finishedEditing();
       this.editing = field;
       switch (field) {
-          case SelfEditable.preferred_name: this.editText = this.match.preferred_name; break;
-          case SelfEditable.contact: this.editText = this.match.contact; break;
-          case SelfEditable.birthday: this.editText = this.match.birthday; break;
-          case SelfEditable.bioline: this.editText = this.match.bioline; break;
-          case SelfEditable.bio1: this.editText = this.match.bio1; break;
-          case SelfEditable.bio2: this.editText = this.match.bio2; break;
-          case SelfEditable.bio3: this.editText = this.match.bio3; break;
+          case SelfEditable.preferred_name: this.editText = this.match.preferred_name;
+            window.setTimeout(() => $('#input_preferred_name').focus() , 50); break;
+          case SelfEditable.contact: this.editText = this.match.contact;
+              window.setTimeout(() => $('#input_contact').focus() , 50); break;
+          case SelfEditable.birthday: this.editText = this.match.birthday;
+              window.setTimeout(() => $('#input_birthday').focus() , 50); break;
+          case SelfEditable.bioline: this.editText = this.match.bioline;
+              window.setTimeout(() => $('#input_bioline').focus() , 50); break;
+          case SelfEditable.bio1: this.editText = this.match.bio1;
+              window.setTimeout(() => $('#input_bio1').focus() , 50); break;
+          case SelfEditable.bio2: this.editText = this.match.bio2;
+              window.setTimeout(() => $('#input_bio2').focus() , 50); break;
+          case SelfEditable.bio3: this.editText = this.match.bio3;
+              window.setTimeout(() => $('#input_bio3').focus() , 50); break;
       }
+  }
+
+  setNYC(nyc: boolean) {
+      this.editing = SelfEditable.nyc;
+      this.editText = nyc ? '1' : '0';
+      this.finishedEditing();
   }
 
   finishedEditing() {
       let myProfile: object;
-      if (!this.editFieldValid()) {
-          return;
-      }
       switch (this.editing) {
           case SelfEditable.preferred_name: myProfile = {'preferred_name': this.editText};
               this.match.preferred_name = this.editText; break;
           case SelfEditable.contact: myProfile = {'contact': this.editText};
               this.match.contact = this.editText; break;
-          case SelfEditable.birthday: myProfile = {'birthday': this.editText}; break;
+          case SelfEditable.birthday: const date = new Date(this.editText);
+              myProfile = {'birthday': date.toISOString().substr(0, 10)}; break;
           case SelfEditable.bioline: myProfile = {'bioline': this.editText};
               this.match.bioline = this.editText; break;
+          case SelfEditable.nyc: myProfile = {'nyc': this.editText}; break;
           case SelfEditable.bio1: myProfile = {'bio1': this.editText};
               this.match.bio1 = this.editText; break;
           case SelfEditable.bio2: myProfile = {'bio2': this.editText};
@@ -172,20 +188,30 @@ export class MatchComponent implements OnInit {
               this.match.bio3 = this.editText; break;
           default: myProfile = {}; break;
       }
+      if (!this.editFieldValid(myProfile)) {
+          return;
+      }
       this.apiService.saveProfile(myProfile).subscribe(response => this.processGetMatch(response));
       this.editing = null;
   }
 
-  editFieldValid() {
+  editFieldValid(submitData?: any) {
       let valid = true;
+      let text = this.editText;
       switch (this.editing) {
           case SelfEditable.preferred_name:
-              valid = !!this.editText.length;
+              if (submitData) {
+                  text = submitData.preferred_name;
+              }
+              valid = !!text.length;
               break;
           case SelfEditable.birthday:
-              valid = new RegExp('^([12]\\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01]))$').test(this.editText);
+              if (submitData) {
+                  text = submitData.birthday;
+              }
+              valid = new RegExp('^([12]\\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01]))$').test(text);
               if (!valid) {
-                  alert('Please enter birthday with format YYYY-MM-DD');
+                  alert('Please enter birthday with format YYYY-MM-DD. Provide: ' + text);
               }
               break;
           default: valid = true;

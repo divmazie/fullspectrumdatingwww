@@ -1,4 +1,8 @@
 <div class="row">
+  <div *ngIf="visible_cat === -1" class="col-12 d-block d-md-none dimensions-instructions" style="margin-bottom: 20px;">
+    <div *ngIf="preferences">Your preferences are only visible to people whose identities match on those preferences.</div>
+    <div *ngIf="!preferences">Your identities are visible to everyone who expresses a preference one way or the other on those identities.</div>
+  </div>
   <div class="dimensions_ui" [ngClass]="visible_cat === -1 ? 'col-4' : 'col-12'">
     <div *ngFor="let dim_cat of dim_cats">
       <h3 (click)="showCategory(dim_cat.id)" [style.color]="dim_cat.color" class="dim_cat_name"
@@ -29,7 +33,7 @@
       </div>
     </div>
   </div>
-  <div *ngIf="visible_cat === -1" class="col-8 dimensions-instructions">
+  <div *ngIf="visible_cat === -1" class="col-md-8 d-none d-md-block dimensions-instructions">
     <div *ngIf="preferences">Your preferences are only visible to people whose identities match on those preferences.</div>
     <div *ngIf="!preferences">Your identities are visible to everyone who expresses a preference one way or the other on those identities.</div>
   </div>

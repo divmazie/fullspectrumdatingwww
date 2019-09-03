@@ -19,7 +19,9 @@ import { SearchComponent } from './search/search.component';
 import { MyprofileComponent } from './myprofile/myprofile.component';
 import { MatchComponent } from './match/match.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatButtonModule, MatFormFieldModule, MatInputModule, MatCheckboxModule } from '@angular/material';
+import { MatButtonModule, MatFormFieldModule,
+    MatInputModule, MatCheckboxModule, MatDatepickerModule, MatRadioModule } from '@angular/material';
+import { MatMomentDateModule } from '@angular/material-moment-adapter';
 
 declare var $: any;
 
@@ -47,7 +49,10 @@ declare var $: any;
     MatButtonModule,
     MatFormFieldModule,
     MatInputModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatDatepickerModule,
+    MatMomentDateModule,
+    MatRadioModule
   ],
   providers: [ApiService],
   bootstrap: [AppComponent]

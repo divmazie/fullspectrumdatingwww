@@ -75,8 +75,10 @@ export class SearchComponent implements OnInit {
   }
 
   back() {
-      this.location.back();
-      this.match_detail = false;
+      if (this.match_detail) {
+          this.location.back();
+          this.match_detail = false;
+      }
   }
 
     @HostListener('window:popstate', ['$event'])
