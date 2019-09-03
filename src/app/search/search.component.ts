@@ -12,6 +12,7 @@ export interface Profile {
     picture_file: string;
     top_identities: string[];
     top_preferences: string[];
+    cosine?: number;
 }
 
 enum Views {
@@ -31,6 +32,7 @@ export class SearchComponent implements OnInit {
   view: Views;
   match_detail: boolean;
   api_url = environment.apiUrl;
+  cosines: object;
 
   get viewsEnum() { return Views; }
 
@@ -61,12 +63,26 @@ export class SearchComponent implements OnInit {
   }
 
   processGetMatches(response) {
+      // alert(response['data']['cosines']);
       const _this = this;
       if (response['status'] === 1) {
+          this.cosines = JSON.parse(response['data']['cosines']);
           response['data']['matches'].forEach(function (match) {
               _this.matches.push(match);
           });
+          this.assignCosines();
       }
+  }
+
+  assignCosines() {
+      const _this = this;
+      const proportion = 0.5;
+      this.matches.forEach(function (match) {
+          const match_cosines = _this.cosines[match.id];
+          // alert(JSON.stringify(match_cosines));
+          match.cosine = proportion * match_cosines['myprefs'] + (1 - proportion) * match_cosines['theirprefs'];
+      });
+      this.matches.sort((n1, n2) => n1.cosine - n2.cosine);
   }
 
   matchClicked() {
