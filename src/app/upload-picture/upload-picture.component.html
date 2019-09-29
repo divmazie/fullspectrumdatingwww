@@ -1,0 +1,10 @@
+<h2 mat-dialog-title>Upload a Profile Picture</h2>
+<mat-dialog-content>
+  <angular-file-uploader [config]="afuConfig" (ApiResponse)="afterUpload($event)"></angular-file-uploader>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close>Cancel</button>
+  <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
+  <!-- <button mat-button [mat-dialog-close]="true">Okay</button> -->
+</mat-dialog-actions>

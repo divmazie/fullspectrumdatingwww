@@ -1,9 +1,9 @@
 <div class="app-content">
   <div class="sub-nav-container">
-    <a class="sub-nav" (click)="view=viewsEnum.identities"
-       [ngClass]="view===viewsEnum.identities ? 'active' : ''">Identities</a>
     <a class="sub-nav" (click)="view=viewsEnum.info"
        [ngClass]="view===viewsEnum.info ? 'active' : ''">Profile</a>
+    <a class="sub-nav" (click)="view=viewsEnum.identities"
+       [ngClass]="view===viewsEnum.identities ? 'active' : ''">Identities</a>
   </div>
 
   <div [hidden]="view !== viewsEnum.identities">

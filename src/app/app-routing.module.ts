@@ -9,12 +9,14 @@ import {SigninComponent} from './signin/signin.component';
 import {AuthGuardService} from './auth-guard.service';
 import {SearchComponent} from './search/search.component';
 import {MyprofileComponent} from './myprofile/myprofile.component';
+import {ResetPasswordComponent} from './reset-password/reset-password.component';
 
 const appRoutes: Routes = [
     {path: 'signup', component: SignupComponent },
     {path: 'newuser/:invite_code', component: NewUserComponent},
     {path: 'newuser', component: NewUserComponent},
     {path: 'signin', component: SigninComponent},
+    {path: 'resetpassword', component: ResetPasswordComponent},
     {path: 'home', redirectTo: '/myprofile', pathMatch: 'full'},
     {path: 'myprofile', component: MyprofileComponent, canActivate: [AuthGuardService]},
     {path: 'search', component: SearchComponent, canActivate: [AuthGuardService], children: [

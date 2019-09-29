@@ -52,6 +52,11 @@ export class ApiService {
     return this.getApiCall(request);
   }
 
+  public resetPassword(email) {
+      const request = this.getRequestObject('signup-emails/reset-password', email);
+      return this.getApiCall(request);
+  }
+
   /************ DIMENSIONS ************/
 
   public getDimensions() {

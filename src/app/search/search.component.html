@@ -1,9 +1,9 @@
 <div class="app-content no-gutter">
   <div class="sub-nav-container">
-    <a class="sub-nav" (click)="view=viewsEnum.preferences"
-       [ngClass]="view===viewsEnum.preferences ? 'active' : ''">Preferences</a>
     <a class="sub-nav" (click)="view=viewsEnum.matches; back();"
        [ngClass]="view===viewsEnum.matches ? 'active' : ''">Matches</a>
+    <a class="sub-nav" (click)="view=viewsEnum.preferences"
+       [ngClass]="view===viewsEnum.preferences ? 'active' : ''">Preferences</a>
   </div>
   <div [hidden]="view !== viewsEnum.preferences">
     <app-dimensions-ui [preferences]="true"></app-dimensions-ui>
@@ -12,7 +12,9 @@
     <div class="row" style="height: 100%;">
       <div class="col-12 col-md-4 d-md-block" id="matches_list" [ngClass]="match_detail ? 'd-none' : ''">
         <a *ngFor="let match of matches" class="match-preview" routerLink="./{{match.id}}" (click)="matchClicked()">
-          <img class="match-preview-thumbnail" src="{{api_url}}pictures/{{match.picture_file}}" />
+          <div class="match-preview-thumbnail-container">
+            <img class="match-preview-thumbnail" src="{{api_url}}pictures/{{match.picture_file}}" />
+          </div>
           <div class="match-preview-text">
             <div class="profile_name">{{match.preferred_name}}</div>
             <div >{{match.bioline}}</div>

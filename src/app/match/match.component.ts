@@ -5,6 +5,8 @@ import {ActivatedRoute} from '@angular/router';
 import {ApiService} from '../api.service';
 import {SessionService} from '../session.service';
 import {environment} from '../../environments/environment';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {UploadPictureComponent} from '../upload-picture/upload-picture.component';
 
 export interface Match {
     preferred_name: string;
@@ -69,15 +71,20 @@ export class MatchComponent implements OnInit {
 
   constructor(private dimCatService: DimensionCategoriesService,
               private activatedRoute: ActivatedRoute,
-              private apiService: ApiService) { }
+              private apiService: ApiService,
+              public dialog: MatDialog) { }
 
   ngOnInit() {
+      this.view = Views.stats;
+      this.initialGet();
+  }
+
+  initialGet() {
       if (this.self) {
           this.apiService.getUserProfileMatch().subscribe(response => this.processGetMatch(response));
       } else {
           this.activatedRoute.params.subscribe(params => this.getMatch(params['id']));
       }
-      this.view = Views.stats;
   }
 
   getMatch(profile_id) {
@@ -217,6 +224,16 @@ export class MatchComponent implements OnInit {
           default: valid = true;
       }
       return valid;
+  }
+
+  openUploadModal() {
+      const dialogRef = this.dialog.open(UploadPictureComponent, {
+          height: '400px',
+          width: '600px',
+      });
+      dialogRef.afterClosed().subscribe(result => {
+          this.initialGet();
+      });
   }
 
 }

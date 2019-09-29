@@ -20,7 +20,7 @@ export class MyprofileComponent implements OnInit {
   get viewsEnum() { return Views; }
 
   constructor(private userprofileService: UserprofileService, private apiService: ApiService) {
-    this.view = Views.identities;
+    this.view = Views.info;
   }
 
   ngOnInit() {

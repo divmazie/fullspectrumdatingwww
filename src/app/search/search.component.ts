@@ -38,7 +38,7 @@ export class SearchComponent implements OnInit {
 
   constructor(private apiService: ApiService, private location: Location, private activatedRoute: ActivatedRoute) {
     this.matches = [];
-    this.view = Views.preferences;
+    this.view = Views.matches;
   }
 
   ngOnInit() {

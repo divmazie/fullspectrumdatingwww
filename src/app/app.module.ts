@@ -19,9 +19,12 @@ import { SearchComponent } from './search/search.component';
 import { MyprofileComponent } from './myprofile/myprofile.component';
 import { MatchComponent } from './match/match.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatButtonModule, MatFormFieldModule,
+import { MatButtonModule, MatFormFieldModule, MatDialogModule,
     MatInputModule, MatCheckboxModule, MatDatepickerModule, MatRadioModule } from '@angular/material';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
+import { AngularFileUploaderModule } from 'angular-file-uploader';
+import { UploadPictureComponent } from './upload-picture/upload-picture.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 declare var $: any;
 
@@ -38,8 +41,13 @@ declare var $: any;
     HeaderComponent,
     SearchComponent,
     MyprofileComponent,
-    MatchComponent
+    MatchComponent,
+    UploadPictureComponent,
+    ResetPasswordComponent
   ],
+    entryComponents: [
+        UploadPictureComponent
+    ],
   imports: [
     BrowserModule,
     FormsModule,
@@ -52,7 +60,9 @@ declare var $: any;
     MatCheckboxModule,
     MatDatepickerModule,
     MatMomentDateModule,
-    MatRadioModule
+    MatRadioModule,
+    AngularFileUploaderModule,
+    MatDialogModule
   ],
   providers: [ApiService],
   bootstrap: [AppComponent]
