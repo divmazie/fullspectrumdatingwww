@@ -2,8 +2,9 @@ import {Component, Input, OnInit} from '@angular/core';
 import {ApiService} from '../api.service';
 import { Location } from '@angular/common';
 import { HostListener } from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
+import {ActivatedRoute} from '@angular/router';
 import {environment} from '../../environments/environment';
+import {SessionService} from '../session.service';
 
 export interface Profile {
     id: number;
@@ -39,7 +40,7 @@ export class SearchComponent implements OnInit {
   constructor(private apiService: ApiService,
               private location: Location,
               private activatedRoute: ActivatedRoute,
-              private router: Router) {
+              private sessionService: SessionService) {
     this.matches = [];
     this.view = Views.matches;
   }
@@ -74,8 +75,8 @@ export class SearchComponent implements OnInit {
               _this.matches.push(match);
           });
           this.assignCosines();
-      } else if (response['errorMessage']==='Authentication invalid') {
-          this.router.navigate(['/signin']);
+      } else if (response['errorMessage'] === 'Authentication invalid') {
+          this.sessionService.logout();
       }
   }
 

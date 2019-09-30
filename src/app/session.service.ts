@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {UserprofileService} from './userprofile.service';
 import {ApiService} from './api.service';
+import {Router} from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,7 @@ export class SessionService {
   id: number;
   hash: string;
 
-  constructor() {
+  constructor(private router: Router) {
       this.id = Number(localStorage.getItem('session_id'));
       this.hash = localStorage.getItem('session_hash');
   }
@@ -32,5 +33,6 @@ export class SessionService {
       localStorage.removeItem('session_hash');
       localStorage.removeItem('user_profile_preferred_name');
       localStorage.removeItem('user_profile_birthday');
+      this.router.navigate(['/signin']);
   }
 }

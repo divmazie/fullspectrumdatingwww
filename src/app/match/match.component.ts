@@ -1,7 +1,7 @@
 import {Component, Input, OnChanges, OnInit} from '@angular/core';
 import {Dimension} from '../dimensions-ui/dimensions-ui.component';
 import {DimensionCategoriesService} from '../dimension-categories.service';
-import {ActivatedRoute, Router} from '@angular/router';
+import {ActivatedRoute} from '@angular/router';
 import {ApiService} from '../api.service';
 import {SessionService} from '../session.service';
 import {environment} from '../../environments/environment';
@@ -73,7 +73,7 @@ export class MatchComponent implements OnInit {
               private activatedRoute: ActivatedRoute,
               private apiService: ApiService,
               public dialog: MatDialog,
-              private router: Router) { }
+              private sessionService: SessionService) { }
 
   ngOnInit() {
       this.view = Views.stats;
@@ -121,7 +121,7 @@ export class MatchComponent implements OnInit {
                 }
             });
         } else if (response['errorMessage'] === 'Authentication invalid') {
-            this.router.navigate(['/signin']);
+            this.sessionService.logout();
         }
   }
 
