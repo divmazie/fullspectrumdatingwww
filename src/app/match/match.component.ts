@@ -1,7 +1,7 @@
 import {Component, Input, OnChanges, OnInit} from '@angular/core';
 import {Dimension} from '../dimensions-ui/dimensions-ui.component';
 import {DimensionCategoriesService} from '../dimension-categories.service';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {ApiService} from '../api.service';
 import {SessionService} from '../session.service';
 import {environment} from '../../environments/environment';
@@ -72,7 +72,8 @@ export class MatchComponent implements OnInit {
   constructor(private dimCatService: DimensionCategoriesService,
               private activatedRoute: ActivatedRoute,
               private apiService: ApiService,
-              public dialog: MatDialog) { }
+              public dialog: MatDialog,
+              private router: Router) { }
 
   ngOnInit() {
       this.view = Views.stats;
@@ -92,32 +93,36 @@ export class MatchComponent implements OnInit {
   }
 
   processGetMatch(response) {
-        this.match = response.data.match;
-        this.top_identities = response.data.top_identities;
-        this.top_preferences = response.data.top_preferences;
-        this.theyLikeYou = response.data.theyLikeYou;
-        this.youLikeThem = response.data.youLikeThem;
-        this.youNotLikeThem = response.data.youNotLikeThem;
-        // alert(JSON.stringify(this.youNotLikeThem));
-      this.theyLikeYou = this.theyLikeYou.sort((n1, n2) => n2.match_value - n1.match_value);
-      this.youLikeThem = this.youLikeThem.sort((n1, n2) => n2.match_value - n1.match_value);
-      this.youNotLikeThem = this.youNotLikeThem.sort((n1, n2) => n1.match_value - n2.match_value);
-      this.maxMatchValue = 0;
-      this.theyLikeYou.forEach((dim) => {
-          if (dim.match_value > this.maxMatchValue) {
-              this.maxMatchValue = dim.match_value;
-          }
-      });
-      this.youLikeThem.forEach((dim) => {
-          if (dim.match_value > this.maxMatchValue) {
-              this.maxMatchValue = dim.match_value;
-          }
-      });
-      this.youNotLikeThem.forEach((dim) => {
-          if (-dim.match_value > this.maxMatchValue) {
-              this.maxMatchValue = -dim.match_value;
-          }
-      });
+        if (response['status'] === 1) {
+            this.match = response.data.match;
+            this.top_identities = response.data.top_identities;
+            this.top_preferences = response.data.top_preferences;
+            this.theyLikeYou = response.data.theyLikeYou;
+            this.youLikeThem = response.data.youLikeThem;
+            this.youNotLikeThem = response.data.youNotLikeThem;
+            // alert(JSON.stringify(this.youNotLikeThem));
+            this.theyLikeYou = this.theyLikeYou.sort((n1, n2) => n2.match_value - n1.match_value);
+            this.youLikeThem = this.youLikeThem.sort((n1, n2) => n2.match_value - n1.match_value);
+            this.youNotLikeThem = this.youNotLikeThem.sort((n1, n2) => n1.match_value - n2.match_value);
+            this.maxMatchValue = 0;
+            this.theyLikeYou.forEach((dim) => {
+                if (dim.match_value > this.maxMatchValue) {
+                    this.maxMatchValue = dim.match_value;
+                }
+            });
+            this.youLikeThem.forEach((dim) => {
+                if (dim.match_value > this.maxMatchValue) {
+                    this.maxMatchValue = dim.match_value;
+                }
+            });
+            this.youNotLikeThem.forEach((dim) => {
+                if (-dim.match_value > this.maxMatchValue) {
+                    this.maxMatchValue = -dim.match_value;
+                }
+            });
+        } else if (response['errorMessage'] === 'Authentication invalid') {
+            this.router.navigate(['/signin']);
+        }
   }
 
   /*
