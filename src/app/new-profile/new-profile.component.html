@@ -1,0 +1,107 @@
+<div class="app-content">
+  <div *ngIf="current_step === stepsEnum.basic_info && loaded">
+    <form (ngSubmit)="next()">
+      <div>
+        <mat-form-field>
+          <input matInput id="input_preferred_name" type="text" name="preferred_name"
+                 placeholder="Preferred Name" [(ngModel)]="preferred_name" />
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field>
+          <input matInput name="birthday" id="input_birthday" type="text" placeholder="Birthday"
+                 [(ngModel)]="birthday" [matDatepicker]="birthday_picker" />
+          <mat-datepicker-toggle matPrefix [for]="birthday_picker"></mat-datepicker-toggle>
+          <mat-datepicker [opened]="false" #birthday_picker></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-radio-group [(ngModel)]="nyc" name="nyc">
+          <mat-radio-button [value]="1" name="nyc">New York City area</mat-radio-button>
+          <br />
+          <mat-radio-button [value]="0" name="nyc">Outside of the New York City area</mat-radio-button>
+        </mat-radio-group>
+      </div>
+      <br />
+      <button type="submit" mat-raised-button [disabled]="buttonDisabled()">Next</button>
+    </form>
+  </div>
+  <div *ngIf="current_step === stepsEnum.personal_info">
+    <form (ngSubmit)="next()">
+      <div>
+        <div class="match-full-like">I am passionate about...</div>
+        <mat-form-field style="width: 90%;">
+          <textarea matInput cdkTextareaAutosize cdkAutosizeMinRows="2"
+                    cdkAutosizeMaxRows="10" name="bio1" id="input_bio1" type="text"
+                    [(ngModel)]="bio1" ></textarea>
+        </mat-form-field>
+      </div>
+      <div>
+        <div class="match-full-like">My days are filled with...</div>
+        <mat-form-field style="width: 90%;">
+          <textarea matInput cdkTextareaAutosize cdkAutosizeMinRows="2"
+                    cdkAutosizeMaxRows="10" name="bio2" id="input_bio2" type="text"
+                    [(ngModel)]="bio2"></textarea>
+        </mat-form-field>
+      </div>
+      <div>
+        <div class="match-full-like">Things I'd like to share with someone new</div>
+        <mat-form-field style="width: 90%;">
+          <textarea matInput cdkTextareaAutosize cdkAutosizeMinRows="2"
+                    cdkAutosizeMaxRows="10" name="bio3" id="input_bio3" type="text"
+                    [(ngModel)]="bio3" ></textarea>
+        </mat-form-field>
+      </div>
+      <br />
+      <button type="submit" mat-raised-button [disabled]="buttonDisabled()">Next</button>
+    </form>
+  </div>
+  <div *ngIf="current_step === stepsEnum.picture">
+    <a class="edit" (click)="openUploadModal()">Upload image</a>
+    <div class="col-12 col-md-5" style="margin: auto;">
+      <div class="match-full-image-container">
+        <img src="{{api_url}}pictures/{{picture_file}}" class="match-full-image" />
+      </div>
+    </div>
+    <br />
+    <button (click)="next()" mat-raised-button [disabled]="buttonDisabled()">Next</button>
+  </div>
+  <div *ngIf="current_step === stepsEnum.contact">
+    <div class="match-full-like">Until messaging is built, where can people reach you?</div>
+    <form (ngSubmit)="next()">
+      <div>
+        <mat-form-field>
+          <input matInput id="input_contact" type="text" name="contact"
+                 placeholder="Contact" [(ngModel)]="contact" />
+        </mat-form-field>
+      </div>
+      <br />
+      <button type="submit" mat-raised-button [disabled]="buttonDisabled()">Next</button>
+    </form>
+  </div>
+  <div *ngIf="current_step === stepsEnum.identities">
+    <h1>How do you identify?</h1>
+    <br />
+    <app-dimensions-ui [preferences]="false" [newProfile]="true" [hideCategories]="hideCategories"
+                       (categoryClick)="categoryClick($event)"></app-dimensions-ui>
+    <button (click)="next()" mat-raised-button [disabled]="buttonDisabled()">Next</button>
+  </div>
+  <div *ngIf="current_step === stepsEnum.preferences">
+    <h1>What are your preferences for who you want to meet?</h1>
+    <br />
+    <app-dimensions-ui [preferences]="true" [newProfile]="true" [hideCategories]="hideCategories"
+                       [showOnly]="showOnlyCategory" (categoryClick)="categoryClick($event)"></app-dimensions-ui>
+    <button (click)="newCat()" mat-raised-button [disabled]="buttonDisabled()">Choose a New Category</button>
+    <button (click)="next()" mat-raised-button [disabled]="buttonDisabled()">One More Question</button>
+  </div>
+  <div *ngIf="current_step === stepsEnum.bioline">
+    <h1>What description to you want right under your name?</h1>
+    <form (ngSubmit)="next()">
+      <mat-form-field style="width: 100%;">
+        <input matInput type="text" name="bioline" id="input_bioline" placeholder="Human"
+               [(ngModel)]="bioline" />
+      </mat-form-field>
+      <button type="submit" mat-raised-button [disabled]="buttonDisabled()">See My Matches</button>
+    </form>
+  </div>
+</div>

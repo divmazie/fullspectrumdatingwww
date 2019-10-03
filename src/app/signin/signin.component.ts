@@ -26,7 +26,7 @@ export class SigninComponent implements OnInit {
     }
 
     buttonDisabled() {
-        if (this.password1.length < 2 && this.email.length < 2) {
+        if (this.password1.length < 2 || this.email.length < 2) {
             return true;
         }
         return false;

@@ -15,6 +15,7 @@ export class NewUserComponent implements OnInit {
   email: string;
   password1: string;
   password2: string;
+  newprofile: boolean;
 
   constructor(private route: ActivatedRoute, private apiService: ApiService, private sessionService: SessionService,
               private router: Router, private userService: UserprofileService) { }
@@ -61,6 +62,7 @@ export class NewUserComponent implements OnInit {
   handle_creation_response(response) {
     console.log(response);
     if (response.status === 1) {
+        this.newprofile = response.data.new_profile;
         const password_hash = Md5.hashStr(this.password1);
         this.apiService.accountSignin(this.email, password_hash)
           .subscribe(response => this.handle_signin_response(response));
@@ -73,7 +75,11 @@ export class NewUserComponent implements OnInit {
     console.log(response);
     this.sessionService.setSessionInfo(response.data);
     this.userService.getUserProfile();
-    this.router.navigate(['/home']);
+    if (this.newprofile) {
+        this.router.navigate(['/newprofile']);
+    } else {
+        this.router.navigate(['/home']);
+    }
   }
 
 }

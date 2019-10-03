@@ -40,19 +40,19 @@
 
 .match-full-bioline {
     text-align: left;
-    margin: 10px 0 20px;
+    margin: 4px 0 8px;
 }
 
 .match-full-location {
-    margin: 10px 0 20px;
+    margin: 4px 0 8px;
 }
 
 .match-full-upload {
-    margin: 0 0 20px;
+    margin: 0 0 8px;
 }
 
 .match-full-topidentities {
-    margin: 10px 0 20px;
+    margin: 4px 0 8px;
 }
 
 .match-full-info {

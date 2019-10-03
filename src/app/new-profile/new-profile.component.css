@@ -1,0 +1,35 @@
+.match-full-image-container {
+    width: 100%;
+    height: 0;
+    padding-bottom: 100%;
+    overflow: hidden;
+}
+
+.match-full-image {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+}
+
+.match-full-text {
+    color: black;
+}
+
+.edit {
+    color: #E266A4 !important;
+    cursor: pointer;
+    padding: 0 15px;
+    font-size: 16px;
+}
+
+.match-full-like {
+    font-family: 'Museo-slab', 'museo-slab', serif;
+    font-size: 1.5em;
+    text-align: left;
+    color: black;
+}
+
+textarea {
+     text-align: left;
+     color: #586973;
+ }

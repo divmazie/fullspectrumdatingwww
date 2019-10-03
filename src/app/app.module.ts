@@ -25,6 +25,7 @@ import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { AngularFileUploaderModule } from 'angular-file-uploader';
 import { UploadPictureComponent } from './upload-picture/upload-picture.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { NewProfileComponent } from './new-profile/new-profile.component';
 
 declare var $: any;
 
@@ -43,7 +44,8 @@ declare var $: any;
     MyprofileComponent,
     MatchComponent,
     UploadPictureComponent,
-    ResetPasswordComponent
+    ResetPasswordComponent,
+    NewProfileComponent
   ],
     entryComponents: [
         UploadPictureComponent

@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {ApiService} from '../api.service';
 import {forEach} from '@angular/router/src/utils/collection';
 import {st} from '@angular/core/src/render3';
@@ -28,10 +28,14 @@ declare var $: any;
 })
 export class DimensionsUiComponent implements OnInit {
     @Input() preferences: boolean;
+    @Input() newProfile?: boolean;
+    @Input() showOnly?: number;
+    @Input() hideCategories?: number[];
     dim_cats: DimensionCategory[];
     visible_cat: number;
     showMoreCutoff = 10;
     showMore = false;
+    @Output() categoryClick = new EventEmitter<Object>();
 
     constructor(private apiService: ApiService, private dimCatService: DimensionCategoriesService) {
         this.dim_cats = [];
@@ -42,14 +46,14 @@ export class DimensionsUiComponent implements OnInit {
         this.dim_cats = [];
         if (!this.preferences) {
             this.apiService.getIdentities()
-                .subscribe(response => this.handle_response(response));
+                .subscribe(response => this.handle_response(response, this.showOnly));
         } else {
             this.apiService.getPreferences()
-                .subscribe(response => this.handle_response(response));
+                .subscribe(response => this.handle_response(response, this.showOnly));
         }
     }
 
-    handle_response(response) {
+    handle_response(response, showOnly?) {
         const _this = this;
         if (response['resource'][1] === 'get-identities'
             || response['resource'][1] === 'get-preferences') {
@@ -77,11 +81,11 @@ export class DimensionsUiComponent implements OnInit {
                             }
                         }
                         dim_cat.dimensions = dim_cat.dimensions.sort(function(n1, n2) {
-                            if (n1.yesNo == 0 && n2.yesNo == 0) {
+                            if (n1.yesNo === 0 && n2.yesNo === 0) {
                                 return n1.defaultOrder - n2.defaultOrder;
-                            } else if (n1.yesNo == 0) {
+                            } else if (n1.yesNo === 0) {
                                 return 1;
-                            } else if (n2.yesNo == 0) {
+                            } else if (n2.yesNo === 0) {
                                 return -1;
                             } else {
                                 return n2.slider - n1.slider;
@@ -89,8 +93,15 @@ export class DimensionsUiComponent implements OnInit {
                         });
                     });
                 });
+                if (this.newProfile && showOnly) {
+                    this.showCategory(this.showOnly);
+                }
             }
         }
+    }
+
+    categoryHidden(cat) {
+        return (this.hideCategories && this.hideCategories.indexOf(cat.id) > -1);
     }
 
     getVals(event) {
@@ -127,6 +138,15 @@ export class DimensionsUiComponent implements OnInit {
         } else {
             this.visible_cat = id;
             const _this = this;
+            if (this.newProfile) {
+                this.categoryClick.emit({id: id});
+                const hideCategories = this.hideCategories;
+                this.dim_cats.forEach(function (cat) {
+                    if (cat.id !== id) {
+                        hideCategories.push(cat.id);
+                    }
+                });
+            }
             setTimeout(function () { _this.scrollToId(id); }, 50);
         }
         this.showMore = false;
