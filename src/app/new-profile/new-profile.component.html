@@ -81,6 +81,7 @@
   </div>
   <div *ngIf="current_step === stepsEnum.identities">
     <h1>How do you identify?</h1>
+    <p>All responses are optional.</p>
     <br />
     <app-dimensions-ui [preferences]="false" [newProfile]="true" [hideCategories]="hideCategories"
                        (categoryClick)="categoryClick($event)"></app-dimensions-ui>
@@ -88,6 +89,7 @@
   </div>
   <div *ngIf="current_step === stepsEnum.preferences">
     <h1>What are your preferences for who you want to meet?</h1>
+    <p>All responses are optional.</p>
     <br />
     <app-dimensions-ui [preferences]="true" [newProfile]="true" [hideCategories]="hideCategories"
                        [showOnly]="showOnlyCategory" (categoryClick)="categoryClick($event)"></app-dimensions-ui>
@@ -96,6 +98,7 @@
   </div>
   <div *ngIf="current_step === stepsEnum.bioline">
     <h1>What description to you want right under your name?</h1>
+    <p>Your top three identities from the previous pages will also be shown.</p>
     <form (ngSubmit)="next()">
       <mat-form-field style="width: 100%;">
         <input matInput type="text" name="bioline" id="input_bioline" placeholder="Human"

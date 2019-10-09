@@ -11,6 +11,7 @@ import {SearchComponent} from './search/search.component';
 import {MyprofileComponent} from './myprofile/myprofile.component';
 import {ResetPasswordComponent} from './reset-password/reset-password.component';
 import {NewProfileComponent} from './new-profile/new-profile.component';
+import {WordCloudGeneratorComponent} from './word-cloud-generator/word-cloud-generator.component';
 
 const appRoutes: Routes = [
     {path: 'signup', component: SignupComponent },
@@ -25,6 +26,7 @@ const appRoutes: Routes = [
             {path: ':id', component: MatchComponent}
         ]},
     {path: 'playground', component: PlaygroundComponent},
+    {path: 'wordcloud', component: WordCloudGeneratorComponent},
     {path: '', redirectTo: '/signup', pathMatch: 'full'}
 ];
 

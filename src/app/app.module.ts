@@ -26,6 +26,7 @@ import { AngularFileUploaderModule } from 'angular-file-uploader';
 import { UploadPictureComponent } from './upload-picture/upload-picture.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { NewProfileComponent } from './new-profile/new-profile.component';
+import { WordCloudGeneratorComponent } from './word-cloud-generator/word-cloud-generator.component';
 
 declare var $: any;
 
@@ -45,7 +46,8 @@ declare var $: any;
     MatchComponent,
     UploadPictureComponent,
     ResetPasswordComponent,
-    NewProfileComponent
+    NewProfileComponent,
+    WordCloudGeneratorComponent
   ],
     entryComponents: [
         UploadPictureComponent

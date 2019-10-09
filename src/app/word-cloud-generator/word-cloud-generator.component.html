@@ -1,0 +1,5 @@
+<div class="app-content">
+  <span *ngFor="let dim of dims">
+    <h5 style="display: inline-block; padding-right: 20px;" [ngStyle]="{'color': dim.category_values.color}">{{dim.name}} </h5>
+  </span>
+</div>

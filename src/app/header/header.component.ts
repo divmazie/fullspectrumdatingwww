@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {SessionService} from '../session.service';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-header',
@@ -8,12 +9,14 @@ import {Router} from '@angular/router';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
+  isLandingPage: boolean;
 
-  constructor(private sessionService: SessionService, private router: Router) { }
+  constructor(private sessionService: SessionService, private location: Location) { }
 
   title = 'Human For Human';
 
   ngOnInit() {
+    this.isLandingPage = this.location.path() === '/signup';
   }
 
   sessionIsValid() {
