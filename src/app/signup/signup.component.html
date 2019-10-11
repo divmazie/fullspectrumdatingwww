@@ -4,6 +4,11 @@
   and ways of existing as a human being in the world.</p>
 <p style="font-size: 0.9em">Currently in alpha.
   Location-specific functionality limited to the New York City area.</p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/8mKccwjFe9k" frameborder="0"
+        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<div class="patreon_link">
+  <a href="https://patreon.com/humanforhuman">Support the Patreon!</a>
+</div>
 <br />
 <h1>Code of Conduct:</h1>
 
@@ -49,9 +54,15 @@
   </div>
 </div>
 
+<div class="patreon_link">
+  <a href="https://patreon.com/humanforhuman">Become a member by supporting the Patreon!</a>
+</div>
+
+<!--
 <mat-checkbox [(ngModel)]="consent">
   I can handle this!
 </mat-checkbox>
+-->
 
 <div *ngIf="consent">
     <div *ngIf="!showThanks">
@@ -65,8 +76,8 @@
       </form>
     </div>
     <div *ngIf="showThanks">Thanks for signing up! We'll be in touch!</div>
-  <div class="already-member">
-    Already a member? <a href="/signin">Sign in</a>
-  </div>
+</div>
+<div class="already-member">
+  Already a member? <a href="/signin">Sign in</a>
 </div>
 <div style="height: 60px;"></div>
