@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { environment } from 'environments/environment';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import {SessionService} from '../session.service';
+
+const API_URL = environment.apiUrl;
 
 @Component({
   selector: 'app-upload-picture',
@@ -17,7 +20,7 @@ export class UploadPictureComponent implements OnInit {
           formatsAllowed: '.jpg,.png',
           maxSize: '20',
           uploadAPI: {
-              url: 'http://localhost:8888/picture_upload.php?token=' + this.sessionService.hash
+              url: API_URL + 'picture_upload.php?token=' + this.sessionService.hash
           },
           theme: 'dragNDrop',
           hideResetBtn: true
