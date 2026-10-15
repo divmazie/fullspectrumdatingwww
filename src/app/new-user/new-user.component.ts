@@ -54,7 +54,7 @@ export class NewUserComponent implements OnInit {
   createButtonClick() {
     if (this.password1 === this.password2) {
         const password_hash = Md5.hashStr(this.password1);
-        this.apiService.accountCreate(this.email, password_hash)
+        this.apiService.accountCreate(this.email, password_hash, this.inviteCode)
             .subscribe(response => this.handle_creation_response(response));
     }
   }
