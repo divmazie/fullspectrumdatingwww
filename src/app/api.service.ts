@@ -37,11 +37,6 @@ export class ApiService {
 
   /************ SIGNUP EMAILS ************/
 
-  public getEmails() {
-    const request = this.getRequestObject('signup-emails/get-all', false);
-    return this.getApiCall(request);
-  }
-
   public submitEmail(email) {
     const request = this.getRequestObject('signup-emails/save', email);
     return this.getApiCall(request);
@@ -86,8 +81,9 @@ export class ApiService {
 
   /************ ACCOUNTS ************/
 
-  public accountCreate(email, password_hash) {
-    const request = this.getRequestObject('accounts/create', {email: email, password_hash: password_hash});
+  public accountCreate(email, password_hash, invite_code) {
+    const request = this.getRequestObject('accounts/create',
+        {email: email, password_hash: password_hash, invite_code: invite_code});
     return this.getApiCall(request);
   }
 
