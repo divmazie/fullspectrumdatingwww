@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { UploadPictureComponent } from './upload-picture.component';
+import { UcWidgetModule } from 'ngx-uploadcare-widget';
+
 
 describe('UploadPictureComponent', () => {
   let component: UploadPictureComponent;

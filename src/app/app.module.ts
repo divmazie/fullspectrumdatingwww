@@ -27,6 +27,8 @@ import { UploadPictureComponent } from './upload-picture/upload-picture.componen
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { NewProfileComponent } from './new-profile/new-profile.component';
 import { WordCloudGeneratorComponent } from './word-cloud-generator/word-cloud-generator.component';
+import {Cloudinary, CloudinaryModule} from '@cloudinary/angular-5.x';
+import {UcWidgetModule} from 'ngx-uploadcare-widget';
 
 declare var $: any;
 
@@ -66,7 +68,8 @@ declare var $: any;
     MatMomentDateModule,
     MatRadioModule,
     AngularFileUploaderModule,
-    MatDialogModule
+    MatDialogModule,
+    UcWidgetModule
   ],
   providers: [ApiService],
   bootstrap: [AppComponent]

@@ -1,6 +1,11 @@
 <h2 mat-dialog-title>Upload a Profile Picture</h2>
 <mat-dialog-content>
-  <angular-file-uploader [config]="afuConfig" (ApiResponse)="afterUpload($event)"></angular-file-uploader>
+  <ngx-uploadcare-widget
+          images-only="true"
+          public-key="2036f6a4a7e48d7a2d80"
+          crop="1:1"
+          (on-upload-complete)="onUploadHandler($event)">
+  </ngx-uploadcare-widget>
 </mat-dialog-content>
 
 <mat-dialog-actions>
