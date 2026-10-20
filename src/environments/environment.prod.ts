@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
 
-  apiUrl: 'https://api.fullspectrumdating.com/'
+  apiUrl: 'https://api.humanforhuman.net/'
 };
